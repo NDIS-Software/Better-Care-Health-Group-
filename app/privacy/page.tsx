@@ -1,0 +1,7 @@
+import type { Metadata } from "next";
+import { PageHero } from "../_components/PageHero";
+import { company } from "../_content/site";
+
+export const metadata: Metadata = { title: "Privacy", description: "Privacy information for Better Care Health Group website enquiries." };
+
+export default function PrivacyPage() { return <main id="main-content"><PageHero title="Privacy matters.">This page explains how information submitted through our website enquiry form is handled.</PageHero><section className="page-section"><div className="site-shell content-grid"><h2>Website enquiries</h2><div className="prose"><p>We collect the contact and service information you choose to provide so we can respond to your enquiry and assess whether our services may be suitable.</p><h3>Please keep initial details brief</h3><p>Do not include detailed medical histories, diagnostic reports or other sensitive documents in the public enquiry form. If further information is needed, our team will explain an appropriate way to provide it.</p><h3>Use and disclosure</h3><p>We use enquiry information for communication, service intake and related administration. We do not sell personal information. We may use service providers that support website hosting and email delivery.</p><h3>Access and questions</h3><p>For privacy questions, contact {company.email} or call {company.phone}. This website notice should be reviewed alongside the organisation&apos;s full privacy policy before public launch.</p></div></div></section></main>; }
