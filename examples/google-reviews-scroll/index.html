@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Interactive Reviews Carousel</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --navy: #07577f;
+      --navy-deep: #083b58;
+      --teal: #36a99a;
+      --ink: #102d3d;
+      --muted: #526b78;
+      --line: #d8e4e8;
+      --page: #f3f8f8;
+      --surface: rgba(255, 255, 255, 0.9);
+      --card-width: clamp(300px, 30vw, 386px);
+      --card-gap: 18px;
+      --radius: 24px;
+      --shadow: 0 24px 70px rgba(8, 59, 88, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--page);
+    }
+
+    body {
+      min-height: 100dvh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 8% 8%, rgba(54, 169, 154, 0.13), transparent 30rem),
+        var(--page);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .reviews-section {
+      width: 100%;
+      padding: clamp(54px, 8vw, 104px) 0;
+      overflow: hidden;
+    }
+
+    .section-header {
+      width: min(100% - 40px, 1180px);
+      margin: 0 auto clamp(32px, 5vw, 54px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 32px;
+    }
+
+    .section-title {
+      max-width: 650px;
+    }
+
+    h1 {
+      max-width: 12ch;
+      margin: 0;
+      font-size: clamp(2.7rem, 6vw, 5.6rem);
+      font-weight: 650;
+      letter-spacing: -0.065em;
+      line-height: 0.94;
+    }
+
+    .section-copy {
+      max-width: 54ch;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.5vw, 1.12rem);
+      line-height: 1.65;
+    }
+
+    .review-summary {
+      display: grid;
+      justify-items: end;
+      gap: 14px;
+    }
+
+    .rating-line {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .rating-value {
+      color: var(--navy-deep);
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+    }
+
+    .rating-detail {
+      display: grid;
+      gap: 2px;
+    }
+
+    .stars {
+      color: #eaa928;
+      font-size: 0.98rem;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    .rating-label {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .pause-button {
+      min-width: 104px;
+      min-height: 42px;
+      padding: 0 18px;
+      border: 1px solid rgba(7, 87, 127, 0.24);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.76);
+      color: var(--navy-deep);
+      box-shadow: 0 8px 24px rgba(7, 87, 127, 0.08);
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), background-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    .pause-button:hover {
+      transform: translateY(-2px);
+      background: #fff;
+      box-shadow: 0 12px 30px rgba(7, 87, 127, 0.13);
+    }
+
+    .pause-button:active {
+      transform: scale(0.98);
+    }
+
+    .pause-button:focus-visible,
+    .review-card:focus-visible {
+      outline: 3px solid rgba(54, 169, 154, 0.48);
+      outline-offset: 4px;
+    }
+
+    .reviews-viewport {
+      position: relative;
+      width: 100%;
+      padding: 18px 0 30px;
+      overflow: hidden;
+      cursor: grab;
+      touch-action: pan-y;
+      user-select: none;
+      -webkit-user-select: none;
+      mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+    }
+
+    .reviews-viewport::before,
+    .reviews-viewport::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 2;
+      width: min(7vw, 90px);
+      pointer-events: none;
+    }
+
+    .reviews-viewport::before {
+      left: 0;
+      background: linear-gradient(90deg, var(--page), transparent);
+    }
+
+    .reviews-viewport::after {
+      right: 0;
+      background: linear-gradient(-90deg, var(--page), transparent);
+    }
+
+    .reviews-viewport.is-dragging {
+      cursor: grabbing;
+    }
+
+    .reviews-track {
+      display: flex;
+      width: max-content;
+      gap: var(--card-gap);
+      padding-left: max(20px, calc((100vw - 1180px) / 2));
+      will-change: transform;
+    }
+
+    .review-card {
+      --pointer-x: 50%;
+      --pointer-y: 50%;
+      --tilt-x: 0deg;
+      --tilt-y: 0deg;
+      position: relative;
+      isolation: isolate;
+      width: var(--card-width);
+      min-height: 286px;
+      flex: 0 0 auto;
+      padding: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(158, 190, 200, 0.58);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: 0 12px 34px rgba(8, 59, 88, 0.07);
+      outline: none;
+      transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+      transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1), border-color 260ms ease, box-shadow 260ms ease;
+    }
+
+    .review-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      background: radial-gradient(320px circle at var(--pointer-x) var(--pointer-y), rgba(54, 169, 154, 0.18), transparent 56%);
+      opacity: 0;
+      transition: opacity 260ms ease;
+      pointer-events: none;
+    }
+
+    .review-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      border-radius: inherit;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.72), rgba(239, 248, 248, 0.84));
+      pointer-events: none;
+    }
+
+    .review-card:hover,
+    .review-card:focus-visible {
+      border-color: rgba(54, 169, 154, 0.64);
+      box-shadow: var(--shadow);
+    }
+
+    .review-card:hover::before,
+    .review-card:focus-visible::before {
+      opacity: 1;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .reviewer {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 auto;
+      border: 2px solid rgba(255, 255, 255, 0.86);
+      border-radius: 50%;
+      background: #d5e4e7;
+      box-shadow: 0 7px 18px rgba(8, 59, 88, 0.14);
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    .reviewer-meta {
+      min-width: 0;
+    }
+
+    .reviewer-name {
+      display: block;
+      overflow: hidden;
+      color: var(--ink);
+      font-size: 0.94rem;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .review-date {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+
+    .google-mark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.74);
+      color: #4285f4;
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .card-stars {
+      margin: 26px 0 14px;
+      color: #eaa928;
+      font-size: 0.92rem;
+      letter-spacing: 0.13em;
+    }
+
+    blockquote {
+      margin: 0;
+      color: #315666;
+      font-size: clamp(0.98rem, 1.15vw, 1.06rem);
+      line-height: 1.68;
+    }
+
+    .interaction-note {
+      width: min(100% - 40px, 1180px);
+      margin: 18px auto 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-align: right;
+    }
+
+    @media (max-width: 720px) {
+      :root {
+        --card-width: min(84vw, 350px);
+        --card-gap: 14px;
+      }
+
+      .section-header {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .review-summary {
+        width: 100%;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        justify-items: start;
+      }
+
+      .pause-button {
+        justify-self: end;
+      }
+
+      .reviews-viewport {
+        mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+      }
+
+      .review-card {
+        min-height: 276px;
+        padding: 24px;
+      }
+
+      .interaction-note {
+        text-align: left;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --ink: #e9f2f4;
+        --muted: #a8bdc5;
+        --line: #284c5c;
+        --page: #082b3d;
+        --surface: rgba(11, 54, 73, 0.88);
+        --shadow: 0 28px 74px rgba(0, 15, 24, 0.38);
+      }
+
+      body {
+        background:
+          radial-gradient(circle at 8% 8%, rgba(54, 169, 154, 0.16), transparent 30rem),
+          var(--page);
+      }
+
+      .rating-value {
+        color: #d8edf1;
+      }
+
+      .pause-button {
+        border-color: rgba(143, 225, 209, 0.3);
+        background: rgba(13, 65, 86, 0.8);
+        color: #dff7f2;
+      }
+
+      .pause-button:hover {
+        background: #104c64;
+      }
+
+      .review-card {
+        border-color: rgba(104, 151, 166, 0.4);
+        box-shadow: 0 12px 34px rgba(0, 15, 24, 0.22);
+      }
+
+      .review-card::after {
+        background: linear-gradient(145deg, rgba(20, 73, 91, 0.94), rgba(9, 48, 66, 0.96));
+      }
+
+      .review-card::before {
+        background: radial-gradient(320px circle at var(--pointer-x) var(--pointer-y), rgba(77, 199, 179, 0.22), transparent 56%);
+      }
+
+      blockquote {
+        color: #c5d8dd;
+      }
+
+      .google-mark {
+        background: rgba(11, 49, 66, 0.8);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reviews-viewport {
+        overflow-x: auto;
+        cursor: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: thin;
+      }
+
+      .reviews-track {
+        transform: none !important;
+        will-change: auto;
+      }
+
+      .review-card {
+        scroll-snap-align: center;
+        transform: none !important;
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="reviews-section">
+    <header class="section-header">
+      <div class="section-title">
+        <h1>Care that feels personal.</h1>
+        <p class="section-copy">Move through each story at your own pace. Hover to slow the motion, or press and drag to explore.</p>
+      </div>
+
+      <div class="review-summary" aria-label="Review summary">
+        <div class="rating-line">
+          <strong class="rating-value">4.9</strong>
+          <div class="rating-detail">
+            <span class="stars" aria-label="4.9 out of 5 stars">★★★★★</span>
+            <span class="rating-label">Google reviews</span>
+          </div>
+        </div>
+        <button class="pause-button" id="pause-button" type="button" aria-pressed="false">Pause</button>
+      </div>
+    </header>
+
+    <div class="reviews-viewport" id="reviews-viewport" aria-label="Client reviews carousel">
+      <div class="reviews-track" id="reviews-track"></div>
+    </div>
+
+    <p class="interaction-note">Hover to slow. Drag to browse.</p>
+  </main>
+
+  <script>
+    const reviews = [
+      {
+        name: "Amelia Russo",
+        date: "2 weeks ago",
+        image: "https://i.pravatar.cc/96?img=47",
+        text: "The team listened carefully and made every step feel clear. The support felt thoughtful, calm and genuinely personal."
+      },
+      {
+        name: "Noah Williams",
+        date: "1 month ago",
+        image: "https://i.pravatar.cc/96?img=12",
+        text: "Communication was excellent from the first call. We always knew what was happening and who to speak with."
+      },
+      {
+        name: "Priya Nair",
+        date: "6 weeks ago",
+        image: "https://i.pravatar.cc/96?img=32",
+        text: "Our practitioner was patient, practical and respectful. The recommendations made a real difference to daily life."
+      },
+      {
+        name: "Liam Chen",
+        date: "2 months ago",
+        image: "https://i.pravatar.cc/96?img=15",
+        text: "Professional care with a very human approach. Appointments were organised well and never felt rushed."
+      },
+      {
+        name: "Sophie Martin",
+        date: "3 months ago",
+        image: "https://i.pravatar.cc/96?img=44",
+        text: "The whole experience was reassuring. Our goals were understood and the plan was easy for everyone to follow."
+      }
+    ];
+
+    const viewport = document.querySelector("#reviews-viewport");
+    const track = document.querySelector("#reviews-track");
+    const pauseButton = document.querySelector("#pause-button");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const createReviewCard = ({ name, date, image, text }, duplicate) => `
+      <article class="review-card" tabindex="${duplicate ? "-1" : "0"}" ${duplicate ? "aria-hidden=\"true\"" : ""}>
+        <div class="card-top">
+          <div class="reviewer">
+            <img class="avatar" src="${image}" alt="" width="48" height="48" draggable="false">
+            <div class="reviewer-meta">
+              <span class="reviewer-name">${name}</span>
+              <span class="review-date">${date}</span>
+            </div>
+          </div>
+          <span class="google-mark" aria-label="Google review">G</span>
+        </div>
+        <div class="card-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>“${text}”</blockquote>
+      </article>
+    `;
+
+    track.innerHTML = [
+      ...reviews.map((review) => createReviewCard(review, false)),
+      ...reviews.map((review) => createReviewCard(review, true))
+    ].join("");
+
+    let offset = 0;
+    let currentSpeed = 34;
+    let targetSpeed = 34;
+    let lastFrame = performance.now();
+    let lastPointerX = 0;
+    let lastPointerTime = 0;
+    let dragVelocity = 0;
+    let dragging = false;
+    let manuallyPaused = false;
+    let groupWidth = 0;
+
+    const measure = () => {
+      const firstDuplicate = track.children[reviews.length];
+      groupWidth = firstDuplicate ? firstDuplicate.offsetLeft - track.children[0].offsetLeft : 0;
+    };
+
+    const wrapOffset = () => {
+      if (!groupWidth) return;
+      while (offset <= -groupWidth) offset += groupWidth;
+      while (offset > 0) offset -= groupWidth;
+    };
+
+    const render = () => {
+      track.style.transform = `translate3d(${offset}px, 0, 0)`;
+    };
+
+    const animate = (time) => {
+      const delta = Math.min((time - lastFrame) / 1000, 0.05);
+      lastFrame = time;
+
+      if (!reduceMotion.matches) {
+        currentSpeed += (targetSpeed - currentSpeed) * Math.min(1, delta * 6);
+
+        if (!dragging) {
+          offset -= currentSpeed * delta;
+          if (Math.abs(dragVelocity) > 0.5) {
+            offset += dragVelocity * delta;
+            dragVelocity *= Math.pow(0.035, delta);
+          }
+          wrapOffset();
+          render();
+        }
+      }
+
+      requestAnimationFrame(animate);
+    };
+
+    const updateSpeed = () => {
+      if (manuallyPaused || dragging) {
+        targetSpeed = 0;
+      } else if (viewport.matches(":hover")) {
+        targetSpeed = 9;
+      } else {
+        targetSpeed = 34;
+      }
+    };
+
+    viewport.addEventListener("pointerenter", updateSpeed);
+    viewport.addEventListener("pointerleave", () => {
+      if (!dragging) updateSpeed();
+    });
+
+    viewport.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0 || reduceMotion.matches) return;
+      dragging = true;
+      dragVelocity = 0;
+      lastPointerX = event.clientX;
+      lastPointerTime = performance.now();
+      viewport.classList.add("is-dragging");
+      viewport.setPointerCapture(event.pointerId);
+      updateSpeed();
+    });
+
+    viewport.addEventListener("pointermove", (event) => {
+      if (!dragging) return;
+      const now = performance.now();
+      const distance = event.clientX - lastPointerX;
+      const elapsed = Math.max(now - lastPointerTime, 8);
+      offset += distance;
+      dragVelocity = (distance / elapsed) * 1000;
+      lastPointerX = event.clientX;
+      lastPointerTime = now;
+      wrapOffset();
+      render();
+    });
+
+    const releaseDrag = (event) => {
+      if (!dragging) return;
+      dragging = false;
+      viewport.classList.remove("is-dragging");
+      if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+      updateSpeed();
+    };
+
+    viewport.addEventListener("pointerup", releaseDrag);
+    viewport.addEventListener("pointercancel", releaseDrag);
+
+    track.addEventListener("pointermove", (event) => {
+      const card = event.target.closest(".review-card");
+      if (!card || dragging || reduceMotion.matches) return;
+      const bounds = card.getBoundingClientRect();
+      const x = event.clientX - bounds.left;
+      const y = event.clientY - bounds.top;
+      const xRatio = x / bounds.width - 0.5;
+      const yRatio = y / bounds.height - 0.5;
+      card.style.setProperty("--pointer-x", `${x}px`);
+      card.style.setProperty("--pointer-y", `${y}px`);
+      card.style.setProperty("--tilt-x", `${yRatio * -3}deg`);
+      card.style.setProperty("--tilt-y", `${xRatio * 4}deg`);
+    });
+
+    track.addEventListener("pointerout", (event) => {
+      const card = event.target.closest(".review-card");
+      if (!card || card.contains(event.relatedTarget)) return;
+      card.style.setProperty("--tilt-x", "0deg");
+      card.style.setProperty("--tilt-y", "0deg");
+    });
+
+    pauseButton.addEventListener("click", () => {
+      manuallyPaused = !manuallyPaused;
+      pauseButton.textContent = manuallyPaused ? "Resume" : "Pause";
+      pauseButton.setAttribute("aria-pressed", String(manuallyPaused));
+      updateSpeed();
+    });
+
+    reduceMotion.addEventListener("change", () => {
+      offset = 0;
+      render();
+      pauseButton.hidden = reduceMotion.matches;
+    });
+
+    window.addEventListener("resize", measure);
+    window.addEventListener("load", measure, { once: true });
+    pauseButton.hidden = reduceMotion.matches;
+    measure();
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>
