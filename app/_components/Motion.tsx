@@ -12,8 +12,3 @@ export function Pop({ children, delay = 0, className }: { children: ReactNode; d
   const reduce = useReducedMotion();
   return <motion.div className={className} initial={reduce ? false : { opacity: 0, scale: .9, y: 34 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true, amount: .25 }} transition={{ type: "spring", stiffness: 130, damping: 19, delay }}>{children}</motion.div>;
 }
-
-export function AmbientMedia({ children }: { children: ReactNode }) {
-  const reduce = useReducedMotion();
-  return <motion.div className="hero-media" initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1, scale: reduce ? 1 : [1, 1.035, 1.012] }} transition={{ opacity: { duration: .8 }, scale: { duration: 18, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" } }}>{children}</motion.div>;
-}

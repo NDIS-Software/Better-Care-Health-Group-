@@ -1,30 +1,44 @@
-# Design QA
+# Design QA — Google Review Placeholder
 
-## Evidence
+- Source visual truth: `C:\Users\chuco\AppData\Local\Temp\codex-clipboard-21af1b26-aeac-4b9c-acd7-78015df9a6b0.png`
+- Implementation screenshot: `C:\Users\chuco\AppData\Local\Temp\better-care-review-placeholder-page1.png`
+- Comparison image: `C:\Users\chuco\AppData\Local\Temp\better-care-review-comparison-page1.png`
+- Source viewport: 1740 × 1000
+- Browser viewport: 1270 × 710
+- State: homepage review placeholder, first carousel page
 
-- Visual source of truth: `C:\Users\chuco\.codex\generated_images\019f6e21-d45b-7c72-af9d-e85d6b62fa2d\exec-04ad7b71-f9a4-4293-89e4-d800908ab2e0.png`
-- Side-by-side comparison: `design-qa-assets/comparison.png`
-- Desktop viewport/state: `1440 × 1000`, homepage loaded after entry motion; screenshot `design-qa-assets/home-desktop.png`
-- Mobile viewport/state: `390 × 844`, homepage loaded after entry motion; screenshot `design-qa-assets/home-mobile.png`
-- Multi-section evidence: `design-qa-assets/home-sections.png`
-- Focused region: hero, primary actions and provider trust rail are visible together in `design-qa-assets/home-desktop.png`.
+## Full-view comparison evidence
 
-## Visual findings
+The source and implementation were normalized to the same display width in a side-by-side comparison. Both use a pale blue section, centered heading, three equal white review cards, top rating/source row, long-form review area, circular reviewer marker, pagination controls and a lower connection/status area. The implementation deliberately retains the existing Better Care navigation and sans-serif brand typography.
 
-- Preserved the reference's photo-led hero, left-aligned message, warm home-care setting, compact navigation and immediate conversion actions.
-- Applied the user's newer direction with a modern sans-serif display face, stronger editorial scale, restrained blue/green/yellow accents, white action buttons and a full-bleed cinematic crop.
-- The generated hero image supports the service context and maintains a clear text-safe area at both desktop and mobile breakpoints.
-- Provider statements are visible without using unqualified clinical claims: NDIS registration is stated directly, while AHPRA is scoped to practitioners and applicable professions.
-- Card elevation, reveal motion and ambient media movement are intentionally subtle and respect reduced-motion settings.
-- Navigation, mobile menu, enquiry route and film-preview dialog were exercised. Browser console returned no errors.
+## Focused-region evidence
+
+Separate focused crops were not required because the card heading, rating row, review copy, identity row and carousel controls were readable in the original-resolution source and implementation captures. The next-page interaction was also tested directly in the browser.
+
+## Findings
+
+- No P0, P1 or P2 issues remain.
+- P3: the reference uses a serif display heading while the implementation uses the site’s existing sans-serif display system. This is an intentional brand-system adaptation.
+- P3: the reference contains real review copy and a verified-rating badge. The implementation replaces these with explicitly labelled placeholder copy so no unverified testimonial or rating is implied.
+
+## Required fidelity surfaces
+
+- Fonts and typography: hierarchy, scale, italic review treatment and metadata weights match the reference structure; typeface follows the existing site system.
+- Spacing and layout rhythm: three-column proportions, generous section spacing, card height, radii and control spacing are consistent with the reference.
+- Colors and visual tokens: pale blue background, white cards, navy text, muted metadata, gold rating position and teal identity circles are aligned with the source and existing brand.
+- Image quality and assets: no testimonial photos or fake Google logo assets were introduced. Existing brand logo remains sharp in the site header.
+- Copy and content: all placeholder copy is explicit, truthful and ready to be replaced by sourced Google reviews later.
+
+## Interaction checks
+
+- Previous/next controls switch between the two placeholder pages.
+- Pagination dots select a page and expose the current state accessibly.
+- No “Verified Google Reviews” or numerical rating claim appears.
+- `npm run build` passes.
 
 ## Comparison history
 
-- P1: the first preview used the runtime image optimiser and showed a development overlay because the Cloudflare asset binding was unavailable. Fixed by serving the local assets directly and setting images to unoptimised for this runtime.
-- P2: the initial desktop headline wrapped to three lines. Fixed the hero measure and type scaling so it resolves to two clear lines at 1440 px while remaining readable on mobile.
-- P3: the implementation logo is intentionally more compact than the original concept so the navigation remains light over the full-bleed hero.
-- Post-fix evidence: `design-qa-assets/comparison.png`, `design-qa-assets/home-desktop.png`, and `design-qa-assets/home-mobile.png`.
+- Initial capture landed below the intended section after interaction; the capture position was corrected and the matching first carousel state was recaptured.
+- Post-fix evidence: `C:\Users\chuco\AppData\Local\Temp\better-care-review-comparison-page1.png`.
 
-## Final result
-
-passed
+final result: passed
