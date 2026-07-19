@@ -1,9 +1,10 @@
 .reviewsSection {
+  --reviews-bg: #fff8df;
   width: 100%;
   scroll-margin-top: 80px;
   padding: clamp(54px, 8vw, 104px) 0;
   overflow: hidden;
-  background: radial-gradient(circle at 8% 8%, rgba(54, 169, 154, 0.13), transparent 30rem), var(--mist);
+  background: radial-gradient(circle at 8% 8%, rgba(244, 189, 42, 0.2), transparent 30rem), var(--reviews-bg);
   color: var(--ink);
 }
 
@@ -104,12 +105,12 @@
 
 .reviewsViewport::before {
   left: 0;
-  background: linear-gradient(90deg, var(--mist), transparent);
+  background: linear-gradient(90deg, var(--reviews-bg), transparent);
 }
 
 .reviewsViewport::after {
   right: 0;
-  background: linear-gradient(-90deg, var(--mist), transparent);
+  background: linear-gradient(-90deg, var(--reviews-bg), transparent);
 }
 
 .reviewsViewport.isDragging {
@@ -151,7 +152,7 @@
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  background: radial-gradient(320px circle at var(--pointer-x) var(--pointer-y), rgba(54, 169, 154, 0.18), transparent 56%);
+  background: radial-gradient(320px circle at var(--pointer-x) var(--pointer-y), rgba(244, 189, 42, 0.22), transparent 56%);
   opacity: 0;
   transition: opacity 260ms ease;
   pointer-events: none;
@@ -163,7 +164,7 @@
   inset: 0;
   z-index: -2;
   border-radius: inherit;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.72), rgba(239, 248, 248, 0.84));
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(255, 246, 214, 0.9));
   pointer-events: none;
 }
 

@@ -96,19 +96,6 @@ img { display: block; max-width: 100%; }
 .company-promises span { padding: 18px 0; border-bottom: 1px solid var(--line); color: #315666; font-size: .98rem; font-weight: 650; }
 
 .services-head { display: grid; grid-template-columns: 1.35fr .65fr; align-items: end; gap: 64px; margin-bottom: 52px; }
-.service-layout { display: grid; grid-template-columns: 1.15fr .85fr; gap: 20px; }
-.service-feature { min-height: 520px; padding: 42px; border-radius: var(--radius); position: relative; overflow: hidden; background: var(--navy-deep); color: white; display: flex; flex-direction: column; justify-content: space-between; }
-.service-feature img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .42; }
-.service-feature::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,59,88,.05), rgba(8,59,88,.92)); }
-.service-feature > * { position: relative; z-index: 1; }
-.service-feature h3 { font-size: clamp(2rem, 4vw, 3.8rem); letter-spacing: -.05em; line-height: 1; margin: 0 0 16px; }
-.service-feature p { max-width: 48ch; color: rgba(255,255,255,.84); line-height: 1.6; }
-.service-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.service-card { min-height: 250px; padding: 28px; background: var(--mist); border: 1px solid #e0ebee; border-radius: var(--radius); display: flex; flex-direction: column; justify-content: space-between; transition: border-color .22s ease, transform .22s ease, box-shadow .22s ease; }
-.service-card:hover { transform: translateY(-5px); border-color: #a5c8d5; box-shadow: 0 18px 50px rgba(7,87,127,.1); }
-.service-card h3 { margin: 0; font-size: 1.45rem; letter-spacing: -.035em; }
-.service-card p { color: var(--muted); line-height: 1.55; margin: 12px 0 20px; }
-.icon-chip { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: white; color: var(--navy); box-shadow: 0 8px 24px rgba(7,87,127,.08); }
 
 .process-section { background: var(--navy-deep); color: white; }
 .process-section .eyebrow { color: #8fe1d1; }
@@ -126,13 +113,6 @@ img { display: block; max-width: 100%; }
 .film-frame img { width: 100%; height: 100%; min-height: 470px; object-fit: cover; }
 .play-button { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%, -50%); width: 76px; height: 76px; border: 0; border-radius: 50%; background: white; color: var(--navy-deep); display: grid; place-items: center; cursor: pointer; box-shadow: 0 18px 50px rgba(8,59,88,.25); transition: transform .25s ease; }
 .play-button:hover { transform: translate(-50%, -50%) scale(1.08); }
-
-.pathways { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.pathway { min-height: 430px; border-radius: var(--radius); padding: 42px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
-.pathway:first-child { background: #dff4f0; }
-.pathway:last-child { background: #eef6dc; }
-.pathway h3 { font-size: clamp(2.3rem, 4vw, 4.4rem); line-height: .95; letter-spacing: -.06em; margin: 0; max-width: 8ch; }
-.pathway p { color: #3f626e; line-height: 1.65; max-width: 48ch; }
 
 .location-section { background: #f7faf8; }
 .location-layout { display: grid; grid-template-columns: .86fr 1.14fr; gap: clamp(48px, 8vw, 110px); align-items: center; }
@@ -209,9 +189,8 @@ img { display: block; max-width: 100%; }
   .hero-content { padding-top: 330px; padding-bottom: 62px; }
   .hero-copy { width: 100%; }
   .hero h1 { font-size: clamp(3.1rem, 13vw, 5.6rem); }
-  .services-head, .service-layout, .film-layout, .content-grid, .form-layout, .company-intro, .location-layout, .home-enquiry-layout, .privacy-layout { grid-template-columns: 1fr; }
+  .services-head, .film-layout, .content-grid, .form-layout, .company-intro, .location-layout, .home-enquiry-layout, .privacy-layout { grid-template-columns: 1fr; }
   .services-head { gap: 24px; }
-  .service-feature { min-height: 440px; }
   .film-layout { gap: 40px; }
   .process-grid { grid-template-columns: 1fr; }
   .process-grid > div + div .process-step { border-left: 0; border-top: 1px solid rgba(255,255,255,.18); padding-left: 0; }
@@ -226,11 +205,9 @@ img { display: block; max-width: 100%; }
   .site-shell { width: min(100% - 28px, 1280px); }
   .brand-lockup { min-width: 0; }
   .brand-logo { width: 52px; height: 52px; }
-  .trust-grid, .pathways, .form-grid { grid-template-columns: 1fr; }
+  .trust-grid, .form-grid { grid-template-columns: 1fr; }
   .trust-item { padding: 18px 0; }
   .trust-item + .trust-item { border-left: 0; border-top: 1px solid var(--line); }
-  .service-stack { grid-template-columns: 1fr; }
-  .service-feature, .pathway { padding: 28px; }
   .map-frame, .map-frame iframe { min-height: 420px; height: 420px; }
   .film-frame, .film-frame img { min-height: 320px; }
   .footer-grid { grid-template-columns: 1fr; gap: 34px; }
