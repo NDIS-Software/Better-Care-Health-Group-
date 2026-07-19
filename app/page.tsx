@@ -6,7 +6,7 @@ import { DirectorProfile } from "./_components/director/DirectorProfile";
 import { FaqSection } from "./_components/faq/FaqSection";
 import { HeroVideo } from "./_components/HeroVideo";
 import { Pop, Reveal } from "./_components/Motion";
-import { ReviewsPlaceholder } from "./_components/reviews/ReviewsPlaceholder";
+import { GoogleReviewsScroll } from "./_components/reviews/GoogleReviewsScroll";
 import { careSteps, company, faqs, services } from "./_content/site";
 
 export const metadata: Metadata = { title: "Allied Health at Home in Melbourne", description: "Physiotherapy, occupational therapy, NDIS and Support at Home services delivered across Melbourne." };
@@ -58,7 +58,7 @@ export default function Home() {
       <div className="pathways"><Pop><article className="pathway"><div><h3>NDIS support</h3><p>Participant-led allied health and support that works with your goals, plan and wider care team.</p></div><Link className="button button-white" href="/ndis">Explore NDIS support <ArrowRight size={18} /></Link></article></Pop><Pop delay={.1}><article className="pathway"><div><h3>Support at Home</h3><p>Practical allied health support designed to help older people stay active, safe and connected at home.</p></div><Link className="button button-white" href="/support-at-home">Explore Support at Home <ArrowRight size={18} /></Link></article></Pop></div>
     </div></section>
 
-    <ReviewsPlaceholder />
+    <GoogleReviewsScroll />
 
     <section className="page-section location-section"><div className="site-shell location-layout">
       <Reveal><div><p className="eyebrow">Where we work</p><h2 className="section-title">Based in Mount Waverley. Supporting Melbourne.</h2><p className="section-copy">Our administration base is in Mount Waverley, with mobile allied health and support delivered in homes and community settings across Melbourne. Availability depends on service type, clinician capacity and travel area.</p><address className="location-address"><MapPin size={25} /><span><strong>{company.name}</strong><br />{company.address}<br /><small>Please contact us before attending this address.</small></span></address><div className="location-actions"><a className="button button-dark" href="https://www.google.com/maps/search/?api=1&query=Mount+Waverley+VIC+3149" target="_blank" rel="noreferrer">View Mount Waverley <ArrowRight size={18} /></a><a className="button button-white" href={company.phoneHref}><Phone size={18} /> {company.phone}</a></div></div></Reveal>
