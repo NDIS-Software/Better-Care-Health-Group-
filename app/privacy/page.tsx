@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHero } from "../_components/PageHero";
+import { PageHero } from "../_components/page-hero/PageHero";
 import { company } from "../_content/site";
 
 export const metadata: Metadata = {
@@ -82,7 +82,7 @@ const sections = [
 
 export default function PrivacyPage() {
   return <main id="main-content">
-    <PageHero title="Privacy Policy">How Better Care Health Group handles personal information provided through this website, service enquiries and early intake.</PageHero>
+    <PageHero title="Privacy Policy" imageKeywords={["secure health information privacy Australia", "accessible consent conversation allied health"]}>How Better Care Health Group handles personal information provided through this website, service enquiries and early intake.</PageHero>
     <section className="page-section"><div className="site-shell privacy-layout">
       <aside className="privacy-summary"><p className="eyebrow">Last updated</p><p>17 July 2026</p><p>This website policy should be read alongside any service-specific privacy notices, consent forms and record-handling procedures provided during intake.</p><a className="button button-white" href={`mailto:${company.email}`}>Ask a privacy question</a></aside>
       <div className="privacy-sections">{sections.map((section) => <section key={section.title}><h2>{section.title}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>)}</div>

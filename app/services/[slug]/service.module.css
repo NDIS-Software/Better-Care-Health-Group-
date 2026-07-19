@@ -1,0 +1,36 @@
+.introLayout { display: grid; grid-template-columns: .82fr 1.18fr; gap: clamp(48px, 9vw, 120px); align-items: start; }
+.introHeading > span { color: var(--navy); display: flex; align-items: center; gap: 10px; font-size: .82rem; font-weight: 750; }
+.introHeading small { display: block; margin-top: 13px; color: #667e88; font-size: .75rem; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+.introHeading h2 { max-width: 11ch; margin: 26px 0 0; font-size: clamp(2.6rem, 5vw, 4.8rem); line-height: .96; letter-spacing: -.06em; }
+.introCopy { color: var(--muted); font-size: clamp(1.08rem, 1.7vw, 1.3rem); line-height: 1.75; }
+.introCopy p { margin-top: 0; }
+.detailsSection { background: var(--mist); }
+.sectionTitle { max-width: 13ch; margin: 0; font-size: clamp(2.6rem, 5vw, 5rem); letter-spacing: -.065em; line-height: .94; }
+.sectionCopy { max-width: 58ch; color: var(--muted); line-height: 1.7; }
+.detailGrid { margin-top: 48px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 20px; }
+.listPanel, .whoPanel { border-radius: var(--radius); }
+.listPanel { background: var(--navy-deep); color: white; display: grid; gap: 0; padding: clamp(24px, 5vw, 48px); }
+.listPanel span { min-height: 84px; border-bottom: 1px solid rgb(255 255 255 / 16%); display: flex; align-items: center; gap: 15px; font-size: 1.05rem; line-height: 1.45; }
+.listPanel span:last-child { border-bottom: 0; }
+.listPanel svg { color: #8fe1d1; flex: 0 0 auto; }
+.whoPanel { border: 1px solid var(--line); background: white; padding: clamp(26px, 5vw, 46px); }
+.whoPanel h3 { margin: 0 0 32px; font-size: 1.8rem; letter-spacing: -.04em; }
+.whoPanel p { margin: 0; border-top: 1px solid var(--line); padding: 22px 0; color: var(--muted); line-height: 1.55; }
+.approachGrid { margin-top: 46px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.approachGrid article { min-height: 270px; border: 1px solid var(--line); border-radius: var(--radius); background: white; display: flex; flex-direction: column; justify-content: space-between; padding: 28px; }
+.approachGrid span { color: var(--teal); font-size: .78rem; font-weight: 750; letter-spacing: .1em; }
+.approachGrid h3 { max-width: 15ch; margin: 0; font-size: 1.45rem; line-height: 1.15; letter-spacing: -.035em; }
+.assurance { margin-top: 20px; border-radius: var(--radius); background: linear-gradient(135deg, #e1f3ee, #eff7dc); display: grid; grid-template-columns: auto 1fr; gap: 20px; padding: 28px; }
+.assurance svg { color: var(--navy); }
+.assurance h3 { margin: 0 0 8px; }
+.assurance p { max-width: 72ch; margin: 0; color: #476776; line-height: 1.6; }
+
+@media (max-width: 820px) {
+  .introLayout, .detailGrid { grid-template-columns: 1fr; }
+  .approachGrid { grid-template-columns: 1fr; }
+  .approachGrid article { min-height: 190px; }
+}
+
+@media (max-width: 520px) {
+  .assurance { grid-template-columns: 1fr; }
+}

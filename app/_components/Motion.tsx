@@ -10,5 +10,5 @@ export function Reveal({ children, delay = 0, className }: { children: ReactNode
 
 export function Pop({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
   const reduce = useReducedMotion();
-  return <motion.div className={className} initial={reduce ? false : { opacity: 0, scale: .9, y: 34 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true, amount: .25 }} transition={{ type: "spring", stiffness: 130, damping: 19, delay }}>{children}</motion.div>;
+  return <motion.div className={className} initial={reduce ? false : { opacity: 0, scale: .9, y: 34 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: false, amount: .18 }} transition={{ type: "spring", stiffness: 130, damping: 19, delay }}>{children}</motion.div>;
 }

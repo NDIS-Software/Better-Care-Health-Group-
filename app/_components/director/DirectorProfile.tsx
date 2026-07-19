@@ -15,21 +15,16 @@ export function DirectorProfile() {
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section || isVisible) return;
+    if (!section) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
+      ([entry]) => setIsVisible(entry.isIntersecting),
       { threshold: 0.2 },
     );
 
     observer.observe(section);
     return () => observer.disconnect();
-  }, [isVisible]);
+  }, []);
 
   return <section ref={sectionRef} className={styles.section} aria-labelledby="director-heading">
     <div className={`site-shell ${styles.layout} ${isVisible ? styles.visible : ""}`}>
