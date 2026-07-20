@@ -1,44 +1,41 @@
-# Design QA — Google Review Placeholder
+# Service detail design QA
 
-- Source visual truth: `C:\Users\chuco\AppData\Local\Temp\codex-clipboard-21af1b26-aeac-4b9c-acd7-78015df9a6b0.png`
-- Implementation screenshot: `C:\Users\chuco\AppData\Local\Temp\better-care-review-placeholder-page1.png`
-- Comparison image: `C:\Users\chuco\AppData\Local\Temp\better-care-review-comparison-page1.png`
-- Source viewport: 1740 × 1000
-- Browser viewport: 1270 × 710
-- State: homepage review placeholder, first carousel page
+- Source visual truth: `C:\Users\chuco\AppData\Local\Temp\codex-clipboard-c7f44f4c-b512-4c8b-884a-78a03a5e59ee.png`
+- Implementation screenshot: `C:\Users\chuco\AppData\Local\Temp\better-care-physiotherapy-reference-layout.png`
+- Combined comparison: `C:\Users\chuco\AppData\Local\Temp\better-care-design-comparison.png`
+- Viewport: 1512 × 1045 desktop; responsive validation at 390 × 844
+- State: Physiotherapy service detail, menus closed, photo slots intentionally shown as placeholders
 
 ## Full-view comparison evidence
 
-The source and implementation were normalized to the same display width in a side-by-side comparison. Both use a pale blue section, centered heading, three equal white review cards, top rating/source row, long-form review area, circular reviewer marker, pagination controls and a lower connection/status area. The implementation deliberately retains the existing Better Care navigation and sans-serif brand typography.
+The final side-by-side comparison confirms the same content order and overall proportions as the reference: compact photo hero with overlaid title, two-column introduction, pale two-column support band, and four-step process row. Page margins, rounded corners, navy/teal palette and section density align with the reference. Existing site header branding is intentionally preserved.
 
-## Focused-region evidence
+## Focused comparison evidence
 
-Separate focused crops were not required because the card heading, rating row, review copy, identity row and carousel controls were readable in the original-resolution source and implementation captures. The next-page interaction was also tested directly in the browser.
-
-## Findings
-
-- No P0, P1 or P2 issues remain.
-- P3: the reference uses a serif display heading while the implementation uses the site’s existing sans-serif display system. This is an intentional brand-system adaptation.
-- P3: the reference contains real review copy and a verified-rating badge. The implementation replaces these with explicitly labelled placeholder copy so no unverified testimonial or rating is implied.
+No additional crop was required because the 3024 × 1045 combined image keeps the hero typography, introduction copy, list rows, icons and process row legible. Photo subject and crop cannot be compared yet because the user explicitly requested placeholders at this stage; both slots retain the correct reference aspect and placement.
 
 ## Required fidelity surfaces
 
-- Fonts and typography: hierarchy, scale, italic review treatment and metadata weights match the reference structure; typeface follows the existing site system.
-- Spacing and layout rhythm: three-column proportions, generous section spacing, card height, radii and control spacing are consistent with the reference.
-- Colors and visual tokens: pale blue background, white cards, navy text, muted metadata, gold rating position and teal identity circles are aligned with the source and existing brand.
-- Image quality and assets: no testimonial photos or fake Google logo assets were introduced. Existing brand logo remains sharp in the site header.
-- Copy and content: all placeholder copy is explicit, truthful and ready to be replaced by sourced Google reviews later.
-
-## Interaction checks
-
-- Previous/next controls switch between the two placeholder pages.
-- Pagination dots select a page and expose the current state accessibly.
-- No “Verified Google Reviews” or numerical rating claim appears.
-- `npm run build` passes.
+- Fonts and typography: Geist retains the site's existing typography while matching the reference hierarchy, compact body copy and bold service title. Long service titles fit within both tested viewports.
+- Spacing and layout rhythm: 18px desktop page margins, compact 325px hero, two-column intro, pale list band and four equal process steps reproduce the source rhythm.
+- Colors and visual tokens: deep navy, muted teal, pale blue and green icon accents match the source direction with accessible contrast.
+- Image quality and asset fidelity: intentionally deferred. Hero and supporting slots are labelled placeholders and carry their service-specific `data-photo-prompt` values for later replacement.
+- Copy and content: the template uses each service's own title, summary, introduction, inclusion list, audience list and approach content rather than duplicating Physiotherapy copy.
+- Responsiveness and accessibility: 390px layout has no horizontal overflow; semantic headings, image roles and labels are present; the longest service title remains inside the hero.
 
 ## Comparison history
 
-- Initial capture landed below the intended section after interaction; the capture position was corrected and the matching first carousel state was recaptured.
-- Post-fix evidence: `C:\Users\chuco\AppData\Local\Temp\better-care-review-comparison-page1.png`.
+1. P2: the first implementation used a taller hero and pushed the four-step process below the reference viewport. Fixed by reducing the hero and introduction typography/spacing while preserving readability.
+2. P1: the global floating enquiry prompt obscured the support list and process row on service details. Fixed by hiding that prompt only on `/services/[slug]` routes.
+3. P2: Physiotherapy split mid-word on mobile. Fixed with a responsive title scale that also accommodates the longest service name.
+4. Post-fix evidence: final desktop comparison shows all four reference sections in the intended order and density; mobile and longest-title checks show no overflow.
+
+## Findings
+
+No actionable P0, P1 or P2 differences remain. Expected deviations are the user-requested photo placeholders, service-specific list lengths, and preservation of the production header lockup.
+
+## Follow-up polish
+
+- P3: replace the two placeholders on each service with final photography using the saved service-specific prompts.
 
 final result: passed

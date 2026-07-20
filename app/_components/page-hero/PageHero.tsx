@@ -5,7 +5,7 @@ import styles from "./PageHero.module.css";
 type PageHeroProps = {
   title: string;
   children: ReactNode;
-  imageKeywords?: [string, string];
+  imageKeywords?: string[];
 };
 
 export function PageHero({

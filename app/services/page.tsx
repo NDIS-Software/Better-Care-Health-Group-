@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight, CheckCircle } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { Pop, Reveal } from "../_components/Motion";
 import { PageHero } from "../_components/page-hero/PageHero";
@@ -8,25 +8,17 @@ import styles from "./services.module.css";
 
 export const metadata: Metadata = {
   title: "Our Allied Health and NDIS Services",
-  description: "Explore therapist-led allied health, 0118 early childhood and NDIS daily living and community supports across Melbourne.",
+  description: "Explore therapist-led allied health, early childhood, daily living and community supports across Melbourne.",
 };
 
-function ServiceLink({ service }: { service: (typeof serviceGroups.dailyLiving)[number] | (typeof serviceGroups.community)[number] }) {
-  const Icon = service.icon;
-  return <Pop><Link className={styles.serviceCard} href={`/services/${service.slug}`}>
-    <span className={styles.cardIcon}><Icon size={24} /></span>
-    <div>
-      {"code" in service && <span className={styles.code}>{service.code}</span>}
-      <h3>{service.title}</h3>
-      <p>{service.summary}</p>
-    </div>
-    <ArrowRight size={20} />
-  </Link></Pop>;
-}
+const supportGroups = [
+  { title: "Early childhood", description: "Family-centred support for development, participation and everyday routines.", services: serviceGroups.earlyChildhood },
+  { title: "Daily living", description: "Practical assistance for home life, routines, travel and independence.", services: serviceGroups.dailyLiving },
+  { title: "Community", description: "Support for participation, interests, connection and community access.", services: serviceGroups.community },
+];
 
 export default function ServicesPage() {
   const [physiotherapy, ...otherClinical] = serviceGroups.clinical;
-  const [earlyChildhood, keyWorker] = serviceGroups.earlyChildhood;
   const PhysiotherapyIcon = physiotherapy.icon;
 
   return <main id="main-content">
@@ -50,33 +42,17 @@ export default function ServicesPage() {
       </div>
     </section>
 
-    <section className={`page-section ${styles.earlySection}`}>
-      <div className={`site-shell ${styles.earlyLayout}`}>
-        <Reveal className={styles.earlyCopy}>
-          <span className={styles.code}>Registration group 0118</span>
-          <h2>{earlyChildhood.title}</h2>
-          <p>{earlyChildhood.intro}</p>
-          <div className={styles.earlyPoints}>{earlyChildhood.approach.map((item) => <span key={item}><CheckCircle size={20} weight="fill" /> {item}</span>)}</div>
-          <Link className="button button-dark" href={`/services/${earlyChildhood.slug}`}>Explore early childhood support <ArrowRight size={18} /></Link>
-        </Reveal>
-        <Pop className={styles.earlyMedia}>
-          <div role="img" aria-label={`Image placeholder: ${earlyChildhood.imageKeywords[0]}`}><span>Image placeholder</span><strong>{earlyChildhood.imageKeywords[0]}</strong></div>
-          <Link href={`/services/${keyWorker.slug}`}><span>Related service</span><h3>{keyWorker.title}</h3><p>{keyWorker.summary}</p><ArrowRight size={20} /></Link>
-        </Pop>
-      </div>
-    </section>
-
-    <section className="page-section">
+    <section className={`page-section ${styles.directorySection}`}>
       <div className="site-shell">
-        <Reveal><h2 className={styles.sectionTitle}>Daily living support</h2><p className={styles.sectionIntro}>Clear, practical assistance planned around preferences, routines, worker competence and continuity.</p></Reveal>
-        <div className={styles.catalogueGrid}>{serviceGroups.dailyLiving.map((service) => <ServiceLink key={service.slug} service={service} />)}</div>
-      </div>
-    </section>
-
-    <section className={`page-section ${styles.communitySection}`}>
-      <div className="site-shell">
-        <Reveal><h2 className={styles.sectionTitle}>Community participation</h2><p className={styles.sectionIntro}>Support to build skills, pursue interests and take part in community life in ways that feel meaningful.</p></Reveal>
-        <div className={styles.catalogueGrid}>{serviceGroups.community.map((service) => <ServiceLink key={service.slug} service={service} />)}</div>
+        <Reveal><h2 className={styles.sectionTitle}>More ways we can help.</h2><p className={styles.sectionIntro}>Browse our early childhood, daily living and community services by name.</p></Reveal>
+        <div className={styles.directoryGrid}>
+          {supportGroups.map((group) => <section className={styles.directoryGroup} key={group.title}>
+            <div className={styles.directoryHeading}><h3>{group.title}</h3><p>{group.description}</p></div>
+            <div className={styles.directoryLinks}>
+              {group.services.map((service) => <Link key={service.slug} href={`/services/${service.slug}`}><span>{service.title}</span><ArrowRight size={18} /></Link>)}
+            </div>
+          </section>)}
+        </div>
       </div>
     </section>
   </main>;

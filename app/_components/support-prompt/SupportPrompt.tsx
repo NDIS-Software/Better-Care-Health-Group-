@@ -2,13 +2,17 @@
 
 import { ArrowRight } from "@phosphor-icons/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./SupportPrompt.module.css";
 
 export function SupportPrompt() {
+  const pathname = usePathname();
   const [footerVisible, setFooterVisible] = useState(false);
+  const hiddenOnServiceDetail = pathname.startsWith("/services/");
 
   useEffect(() => {
+    if (hiddenOnServiceDetail) return;
     const footer = document.querySelector("footer");
     if (!footer) return;
 
@@ -18,7 +22,9 @@ export function SupportPrompt() {
     );
     observer.observe(footer);
     return () => observer.disconnect();
-  }, []);
+  }, [hiddenOnServiceDetail]);
+
+  if (hiddenOnServiceDetail) return null;
 
   return <aside className={`${styles.prompt} ${footerVisible ? styles.hidden : ""}`} aria-label="Support enquiry">
     <div>

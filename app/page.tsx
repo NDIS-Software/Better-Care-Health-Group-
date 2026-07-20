@@ -49,7 +49,7 @@ export default function Home() {
         </Link>
       </Pop>
       <div className={styles.serviceGrid}>{services.slice(1,5).map((service, index) => { const Icon = service.icon; return <Pop key={service.slug} delay={index * .06}><Link className={styles.serviceCard} href={`/services/${service.slug}`}>
-        <div className={styles.serviceMedia} role="img" aria-label={`Image placeholder: ${service.imageKeywords[0]}`}><span>IMAGE PLACEHOLDER</span><strong>{service.imageKeywords[0]}</strong></div>
+        <div className={styles.serviceMedia} role="img" aria-label={`Planned photography for ${service.title}`} data-photo-prompt={service.photoPrompts.hero}><span>PHOTO DIRECTION</span><strong>{service.title}</strong></div>
         <div className={styles.serviceCardBody}><span className={styles.serviceIcon}><Icon size={22} /></span><div><h3>{service.title}</h3><p>{service.summary}</p></div><ArrowRight className={styles.cardArrow} size={19} /></div>
       </Link></Pop>; })}</div>
       <div className={styles.servicesAction}><Link className="button button-dark" href="/services">See all services <ArrowRight size={18} /></Link></div>
