@@ -7,13 +7,49 @@ import { FaqSection } from "./_components/faq/FaqSection";
 import { HeroVideo } from "./_components/HeroVideo";
 import { Pop, Reveal } from "./_components/Motion";
 import { GoogleReviewsScroll } from "./_components/reviews/GoogleReviewsScroll";
+import { absoluteSiteUrl, brandLogoPath, brandSocialImagePath, siteUrl } from "./_config/seo";
 import { careSteps, company, faqs, services } from "./_content/site";
 import styles from "./home/HomePage.module.css";
 
-export const metadata: Metadata = { title: "Allied Health at Home in Melbourne", description: "Physiotherapy, occupational therapy, NDIS and Support at Home services delivered across Melbourne." };
+export const metadata: Metadata = {
+  title: "Allied Health at Home in Melbourne",
+  description: "Physiotherapy, occupational therapy, NDIS and Support at Home services delivered across Melbourne.",
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
-  const structuredData = { "@context": "https://schema.org", "@type": "MedicalBusiness", name: "Better Care Health Group", telephone: "+61 452 638 779", email: "info@bettercarehg.com", address: { "@type": "PostalAddress", streetAddress: "73 Larch Crescent", addressLocality: "Mount Waverley", addressRegion: "VIC", postalCode: "3149", addressCountry: "AU" }, areaServed: "Melbourne", url: process.env.NEXT_PUBLIC_SITE_URL || "https://bettercarehg.com" };
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "@id": `${siteUrl}/#organization`,
+    name: company.name,
+    legalName: company.legalName,
+    description: "Mobile allied health and community support provider serving Melbourne.",
+    url: siteUrl,
+    logo: {
+      "@type": "ImageObject",
+      url: absoluteSiteUrl(brandLogoPath),
+      contentUrl: absoluteSiteUrl(brandLogoPath),
+      width: 214,
+      height: 214,
+      caption: `${company.name} logo`,
+    },
+    image: absoluteSiteUrl(brandSocialImagePath),
+    telephone: "+61 452 638 779",
+    email: company.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "73 Larch Crescent",
+      addressLocality: "Mount Waverley",
+      addressRegion: "VIC",
+      postalCode: "3149",
+      addressCountry: "AU",
+    },
+    areaServed: {
+      "@type": "City",
+      name: "Melbourne",
+    },
+  };
   const faqStructuredData = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) };
   return <main id="main-content" className={styles.home}>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
