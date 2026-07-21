@@ -211,16 +211,16 @@
 .servicesAction { margin-top: 28px; }
 
 .processSection {
-  background: #f7c94d;
-  color: var(--navy-deep);
+  background: #fffaf0;
+  color: var(--ink);
 }
 
 .processSection :global(.eyebrow),
-.processSection :global(.process-step-top) { color: #7b5100; }
+.processSection :global(.process-step-top) { color: var(--navy); }
 .processSection :global(.section-copy),
-.processSection :global(.process-step p) { color: #4f4a36; }
-.processSection :global(.process-grid) { border-color: rgb(8 59 88 / 18%); }
-.processSection :global(.process-grid > div + div .process-step) { border-color: rgb(8 59 88 / 18%); }
+.processSection :global(.process-step p) { color: var(--muted); }
+.processSection :global(.process-grid) { border-color: var(--line); }
+.processSection :global(.process-grid > div + div .process-step) { border-color: var(--line); }
 
 .locationSection { background: #fffaf0; }
 .enquirySection { background: #fff4c9; }
