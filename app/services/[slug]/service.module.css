@@ -27,19 +27,13 @@
   will-change: transform;
 }
 
-.heroPlaceholder {
+.heroPhoto {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  color: #547379;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
 }
+
+.heroPhoto img,
+.supportingPhoto img { object-fit: cover; }
 
 .heroShade {
   position: absolute;
@@ -108,21 +102,13 @@
   line-height: 1.68;
 }
 
-.supportingPlaceholder {
+.supportingPhoto {
   min-height: clamp(300px, 27vw, 370px);
+  position: relative;
   overflow: hidden;
-  border: 1px dashed #9bbabd;
+  border: 1px solid #d8e6e6;
   border-radius: 18px;
   background: #e7f0f0;
-  color: #55777a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .11em;
-  text-transform: uppercase;
   box-shadow: 0 22px 54px rgb(7 58 97 / 7%);
   will-change: transform;
 }
@@ -241,11 +227,10 @@
   .heroCopy, .heroCard[data-long-title] .heroCopy { width: auto; left: 24px; right: 24px; top: auto; bottom: 30px; transform: none; }
   .heroCopy h1, .heroCard[data-long-title] .heroCopy h1 { max-width: 100%; margin-bottom: 16px; font-size: clamp(2.35rem, 10.5vw, 3.3rem); line-height: .98; }
   .heroCopy p { max-width: 31ch; font-size: 1.03rem; line-height: 1.48; text-wrap: pretty; }
-  .heroPlaceholder { flex-direction: column; padding-bottom: 150px; }
   .introSection { padding: 58px 0; }
   .introLayout { grid-template-columns: 1fr; gap: 34px; padding-inline: 8px; }
   .introCopy h2 { font-size: 2.15rem; }
-  .supportingPlaceholder { min-height: 260px; border-radius: 16px; }
+  .supportingPhoto { min-height: 260px; border-radius: 16px; }
   .detailsSection { padding-bottom: 64px; }
   .detailsGrid { grid-template-columns: 1fr; gap: 42px; border-radius: 16px; padding: 34px 24px; }
   .detailColumn h2, .processSection > div > h2 { margin-bottom: 20px; }
@@ -260,7 +245,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .heroCard,
-  .supportingPlaceholder,
+  .supportingPhoto,
   .detailsGrid,
   .processStep { will-change: auto; }
 }

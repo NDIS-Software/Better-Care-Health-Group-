@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import type { Locale } from "../../_i18n/locale";
 import styles from "./GoogleReviewsScroll.module.css";
 
 const reviews = [
@@ -37,7 +38,21 @@ const reviews = [
   }
 ];
 
-export function GoogleReviewsScroll() {
+const chineseReviewText = [
+  "团队认真聆听，让每一步都清楚易懂。整个支持过程细致、平静，也真正贴近个人需要。",
+  "从第一次电话沟通开始就非常顺畅，我们一直清楚了解进展以及应该联系谁。",
+  "专业人员耐心、实用并且尊重我们，提出的建议确实改善了日常生活。",
+  "专业照护同时保有人情味，预约安排有序，过程从不匆忙。",
+  "整个体验令人安心。团队理解我们的目标，制定的计划也容易让大家共同执行。",
+];
+
+export function GoogleReviewsScroll({ locale = "en" }: { locale?: Locale }) {
+  const zh = locale === "zh";
+  const displayReviews = reviews.map((review, index) => ({
+    ...review,
+    date: zh ? ["2 周前", "1 个月前", "6 周前", "2 个月前", "3 个月前"][index] : review.date,
+    text: zh ? chineseReviewText[index] : review.text,
+  }));
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const logicRef = useRef({
@@ -257,9 +272,9 @@ export function GoogleReviewsScroll() {
     <section id="reviews" className={styles.reviewsSection} aria-labelledby="reviews-heading">
       <header className={styles.sectionHeader}>
         <div className={styles.sectionTitle}>
-          <h2 id="reviews-heading">Care that feels personal.</h2>
+          <h2 id="reviews-heading">{zh ? "有温度的个性化照护。" : "Care that feels personal."}</h2>
           <p className={styles.sectionCopy}>
-            Move through each story at your own pace. Hover to slow the motion, or press and drag to explore.
+            {zh ? "按照自己的节奏浏览每段分享。鼠标悬停可减慢移动，也可以按住拖动查看。" : "Move through each story at your own pace. Hover to slow the motion, or press and drag to explore."}
           </p>
         </div>
 
@@ -270,7 +285,7 @@ export function GoogleReviewsScroll() {
               <span className={styles.stars} aria-label="4.9 out of 5 stars">
                 ★★★★★
               </span>
-              <span className={styles.ratingLabel}>Google reviews</span>
+              <span className={styles.ratingLabel}>{zh ? "Google 评价" : "Google reviews"}</span>
             </div>
           </div>
         </div>
@@ -279,15 +294,15 @@ export function GoogleReviewsScroll() {
       <div
         className={styles.reviewsViewport}
         ref={viewportRef}
-        aria-label="Client reviews carousel"
+        aria-label={zh ? "客户评价轮播" : "Client reviews carousel"}
       >
         <div className={styles.reviewsTrack} ref={trackRef}>
-          {reviews.map((review, i) => renderCard(review, i, false))}
-          {reviews.map((review, i) => renderCard(review, i, true))}
+          {displayReviews.map((review, i) => renderCard(review, i, false))}
+          {displayReviews.map((review, i) => renderCard(review, i, true))}
         </div>
       </div>
 
-      <p className={styles.interactionNote}>Hover to slow. Drag to browse.</p>
+      <p className={styles.interactionNote}>{zh ? "悬停减速，拖动浏览。" : "Hover to slow. Drag to browse."}</p>
     </section>
   );
 }

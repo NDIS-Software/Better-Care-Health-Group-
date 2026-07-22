@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { brandLogoPath } from "./_config/seo";
+import { faviconPath } from "./_config/seo";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -12,7 +12,7 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#083b58",
     icons: [
       {
-        src: brandLogoPath,
+        src: faviconPath,
         sizes: "214x214",
         type: "image/png",
         purpose: "any",

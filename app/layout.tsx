@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Footer } from "./_components/Footer";
 import { Header } from "./_components/Header";
+import { DocumentLanguage } from "./_components/DocumentLanguage";
 import { SupportPrompt } from "./_components/support-prompt/SupportPrompt";
-import { brandLogoPath, brandSocialImagePath, siteUrl } from "./_config/seo";
+import { brandSocialImagePath, faviconPath, siteUrl } from "./_config/seo";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -16,9 +17,9 @@ export const metadata: Metadata = {
   applicationName: "Better Care Health Group",
   manifest: "/manifest.webmanifest",
   icons: {
-    icon: [{ url: brandLogoPath, type: "image/png", sizes: "214x214" }],
-    shortcut: [{ url: brandLogoPath, type: "image/png", sizes: "214x214" }],
-    apple: [{ url: brandLogoPath, type: "image/png", sizes: "214x214" }],
+    icon: [{ url: faviconPath, type: "image/png", sizes: "214x214" }],
+    shortcut: [{ url: faviconPath, type: "image/png", sizes: "214x214" }],
+    apple: [{ url: faviconPath, type: "image/png", sizes: "214x214" }],
   },
   openGraph: {
     type: "website",
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en-AU" data-scroll-behavior="smooth">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <DocumentLanguage />
         <a className="skip-link" href="#main-content">Skip to content</a>
         <Header />
         {children}
