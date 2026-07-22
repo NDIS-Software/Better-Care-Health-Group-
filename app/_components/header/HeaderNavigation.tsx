@@ -25,6 +25,7 @@ const navigation = {
         links: [
           ["Physiotherapy", "/services/physiotherapy"],
           ["Occupational Therapy", "/services/occupational-therapy"],
+          ["Social Work", "/services/social-work"],
           ["Allied Health Assistance", "/services/allied-health-assistance"],
           ["Myotherapy", "/services/myotherapy"],
         ],
@@ -70,6 +71,7 @@ const navigation = {
         links: [
           ["物理治疗", "/services/physiotherapy"],
           ["职业治疗", "/services/occupational-therapy"],
+          ["社会工作服务", "/services/social-work"],
           ["联合健康助理", "/services/allied-health-assistance"],
           ["肌肉治疗", "/services/myotherapy"],
         ],

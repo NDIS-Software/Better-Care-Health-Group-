@@ -12,10 +12,8 @@ export function SupportPrompt() {
   const locale = localeFromPath(pathname);
   const zh = locale === "zh";
   const [footerVisible, setFooterVisible] = useState(false);
-  const hiddenOnServiceDetail = pathname.startsWith("/services/") || pathname.startsWith("/zh/services/");
 
   useEffect(() => {
-    if (hiddenOnServiceDetail) return;
     const footer = document.querySelector("footer");
     if (!footer) return;
 
@@ -25,9 +23,7 @@ export function SupportPrompt() {
     );
     observer.observe(footer);
     return () => observer.disconnect();
-  }, [hiddenOnServiceDetail]);
-
-  if (hiddenOnServiceDetail) return null;
+  }, [pathname]);
 
   return <aside className={`${styles.prompt} ${footerVisible ? styles.hidden : ""}`} aria-label={zh ? "服务咨询" : "Support enquiry"}>
     <div>
