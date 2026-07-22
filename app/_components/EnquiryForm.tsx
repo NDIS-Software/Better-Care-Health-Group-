@@ -13,7 +13,7 @@ const copy = {
     selectOne: "Select one",
     selectService: "Select a service",
     relationships: ["Participant or client", "Family member or carer", "Support coordinator", "Health professional", "Other referrer"],
-    services: ["Physiotherapy", "Occupational Therapy", "Allied Health Assistance", "Myotherapy", "Early Childhood Supports", "Support Worker", "Not sure yet"],
+    services: ["Physiotherapy", "Occupational Therapy", "Social Work", "Allied Health Assistance", "Myotherapy", "Early Childhood Supports", "Support Worker", "Not sure yet"],
     funding: ["NDIS", "Support at Home", "Private", "Other or not sure"],
     contact: ["Phone", "Email"],
     placeholder: "A short description is enough. Please do not include detailed medical information or attach clinical documents here.",
@@ -29,7 +29,7 @@ const copy = {
     selectOne: "请选择",
     selectService: "请选择服务",
     relationships: ["参与者或客户", "家人或照护者", "支持协调员", "医疗专业人员", "其他转介人员"],
-    services: ["物理治疗", "职业治疗", "联合健康助理", "肌肉治疗", "幼儿支持服务", "支持工作者", "暂不确定"],
+    services: ["物理治疗", "职业治疗", "社会工作服务", "联合健康助理", "肌肉治疗", "幼儿支持服务", "支持工作者", "暂不确定"],
     funding: ["NDIS", "Support at Home", "自费", "其他或暂不确定"],
     contact: ["电话", "电子邮件"],
     placeholder: "简单说明情况即可。请不要在这里提供详细病史或附上临床文件。",
@@ -43,7 +43,7 @@ const copy = {
 } as const;
 
 const relationshipValues = ["Participant or client", "Family member or carer", "Support coordinator", "Health professional", "Other referrer"];
-const serviceValues = ["Physiotherapy", "Occupational Therapy", "Allied Health Assistance", "Myotherapy", "Early Childhood Supports", "Support Worker", "Not sure yet"];
+const serviceValues = ["Physiotherapy", "Occupational Therapy", "Social Work", "Allied Health Assistance", "Myotherapy", "Early Childhood Supports", "Support Worker", "Not sure yet"];
 const fundingValues = ["NDIS", "Support at Home", "Private", "Other or not sure"];
 const contactValues = ["Phone", "Email"];
 
@@ -70,6 +70,7 @@ export function EnquiryForm({ locale = "en" }: { locale?: Locale }) {
   const options = (values: readonly string[], labels: readonly string[]) => values.map((value, index) => <option value={value} key={value}>{labels[index]}</option>);
 
   return <form className="enquiry-form" onSubmit={submit} lang={locale === "zh" ? "zh-Hans" : "en-AU"}>
+    <input type="hidden" name="locale" value={locale} />
     <div className="form-grid">
       <div className="field"><label htmlFor="name">{content.fields[0]}</label><input id="name" name="name" autoComplete="name" required /></div>
       <div className="field"><label htmlFor="relationship">{content.fields[1]}</label><select id="relationship" name="relationship" required defaultValue=""><option value="" disabled>{content.selectOne}</option>{options(relationshipValues, content.relationships)}</select></div>
