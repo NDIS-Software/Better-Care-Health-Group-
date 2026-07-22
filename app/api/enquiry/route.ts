@@ -41,7 +41,7 @@ function validate(input: Record<string, unknown>): EnquiryData | string {
   if (!allowedValues.funding.has(normalized.funding)) return "Please select a valid funding pathway.";
   if (!allowedValues.contactMethod.has(normalized.contactMethod)) return "Please select a valid contact method.";
 
-  return { ...normalized, locale: input.locale === "zh" ? "zh" : "en" };
+  return normalized;
 }
 
 export async function POST(request: Request) {

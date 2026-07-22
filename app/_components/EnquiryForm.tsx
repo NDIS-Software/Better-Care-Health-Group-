@@ -70,7 +70,6 @@ export function EnquiryForm({ locale = "en" }: { locale?: Locale }) {
   const options = (values: readonly string[], labels: readonly string[]) => values.map((value, index) => <option value={value} key={value}>{labels[index]}</option>);
 
   return <form className="enquiry-form" onSubmit={submit} lang={locale === "zh" ? "zh-Hans" : "en-AU"}>
-    <input type="hidden" name="locale" value={locale} />
     <div className="form-grid">
       <div className="field"><label htmlFor="name">{content.fields[0]}</label><input id="name" name="name" autoComplete="name" required /></div>
       <div className="field"><label htmlFor="relationship">{content.fields[1]}</label><select id="relationship" name="relationship" required defaultValue=""><option value="" disabled>{content.selectOne}</option>{options(relationshipValues, content.relationships)}</select></div>

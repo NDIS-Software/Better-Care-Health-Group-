@@ -5,7 +5,7 @@
 The enquiry API sends two transactional emails through Resend in one batch:
 
 1. A full enquiry notification to the Better Care team.
-2. A short confirmation to the customer who submitted the form.
+2. A short English confirmation to the customer who submitted the form.
 
 Copy `.env.example` to `.env.local` for local development and configure the same values in Vercel:
 

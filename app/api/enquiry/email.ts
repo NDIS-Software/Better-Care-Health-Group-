@@ -10,7 +10,6 @@ export type EnquiryData = {
   funding: string;
   contactMethod: string;
   message: string;
-  locale: "en" | "zh";
 };
 
 function escapeHtml(value: string) {
@@ -34,23 +33,14 @@ export function createEnquiryEmails(data: EnquiryData, from: string, teamRecipie
     .map((field) => `<tr><th style="text-align:left;vertical-align:top;padding:10px;border-bottom:1px solid #d8e4e8;color:#17384a">${fieldLabels[field]}</th><td style="padding:10px;border-bottom:1px solid #d8e4e8;color:#365360;white-space:pre-wrap">${escapeHtml(data[field])}</td></tr>`)
     .join("");
 
-  const customerCopy = data.locale === "zh"
-    ? {
-        subject: "我们已收到您的咨询 | Better Care Health Group",
-        preview: "感谢您联系 Better Care Health Group。",
-        greeting: `${data.name}，您好！`,
-        body: "感谢您联系我们。我们已经收到您的咨询，团队通常会在两个工作日内与您联系。",
-        summary: `咨询服务：${data.service}<br />首选联系方式：${data.contactMethod}`,
-        urgent: "如需紧急医疗协助，请拨打 000。请勿通过回复此邮件发送详细医疗资料。",
-      }
-    : {
-        subject: "We have received your enquiry | Better Care Health Group",
-        preview: "Thank you for contacting Better Care Health Group.",
-        greeting: `Hello ${data.name},`,
-        body: "Thank you for contacting us. We have received your enquiry and our team will usually be in touch within two business days.",
-        summary: `Service: ${data.service}<br />Preferred contact: ${data.contactMethod}`,
-        urgent: "For urgent medical help, call 000. Please do not reply with detailed medical information.",
-      };
+  const customerCopy = {
+    subject: "We have received your enquiry | Better Care Health Group",
+    preview: "Thank you for contacting Better Care Health Group.",
+    greeting: `Hello ${data.name},`,
+    body: "Thank you for contacting us. We have received your enquiry and our team will usually be in touch within two business days.",
+    summary: `Service: ${data.service}<br />Preferred contact: ${data.contactMethod}`,
+    urgent: "For urgent medical help, call 000. Please do not reply with detailed medical information.",
+  };
 
   const shellStart = '<div style="margin:0;background:#f4f8f8;padding:32px 16px;font-family:Arial,sans-serif;color:#17384a"><div style="max-width:640px;margin:0 auto;background:#fff;border:1px solid #d8e4e8;border-radius:16px;padding:32px">';
   const shellEnd = '<p style="margin:28px 0 0;color:#6a7f88;font-size:13px;line-height:1.6">Better Care Health Group<br />Mount Waverley, Victoria<br />info@bettercarehg.com · 0452 638 779</p></div></div>';
