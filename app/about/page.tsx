@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
-import { PageHero } from "../_components/page-hero/PageHero";
+import { localizedMetadata } from "../_i18n/metadata";
+import { AboutPageView } from "./AboutPageView";
 
-export const metadata: Metadata = { title: "About Us", description: "Meet Better Care Health Group, a mobile allied health and support provider serving Melbourne." };
+export const metadata = localizedMetadata({ locale: "en", path: "/about", title: "About Us", description: "Meet Better Care Health Group, a mobile allied health and support provider serving Melbourne." });
 
-export default function AboutPage() { return <main id="main-content"><PageHero title="Better care begins with listening." imageKeywords={["allied health director portrait Melbourne natural", "care team participant planning home Australia"]}>We are a Melbourne-based allied health and support provider focused on practical care, clear communication and genuine respect.</PageHero><section className="page-section"><div className="site-shell film-layout"><div className="film-frame"><img src="/media/home-physio-hero.png" alt="A warm home physiotherapy appointment with family involvement" width="1792" height="1024" loading="lazy" /></div><div className="prose"><h2>Care should make sense in daily life.</h2><p>Better Care Health Group works with participants, older people, families and referrers across Melbourne. Our mobile model helps us understand the real environments, routines and relationships around each person.</p><h3>How we work</h3><p>We listen first, explain recommendations clearly and keep support connected to meaningful goals. When you consent, we collaborate with the people already involved in your care.</p><h3>Professional standards</h3><p>We are a Registered NDIS Provider. Our practitioners hold the qualifications and professional registrations required for their roles, including AHPRA registration where applicable.</p></div></div></section></main>; }
+export default function AboutPage() { return <AboutPageView locale="en" />; }

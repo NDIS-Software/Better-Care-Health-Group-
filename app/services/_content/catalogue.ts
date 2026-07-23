@@ -14,6 +14,7 @@ import {
   UsersThree,
 } from "@phosphor-icons/react/dist/ssr";
 import { servicePhotoPrompts } from "./photo-prompts";
+import { servicePhotos } from "./photo-assets";
 
 const clinicalServices = [
   {
@@ -26,6 +27,7 @@ const clinicalServices = [
     helps: ["People whose mobility or confidence has changed", "NDIS participants working toward functional goals", "Older people who want to remain active at home"],
     approach: ["Assessment led by an AHPRA-registered physiotherapist", "Clear goals and recommendations in everyday language", "Review points that adapt to progress, feedback and changing needs"],
     photoPrompts: servicePhotoPrompts.physiotherapy,
+    photos: servicePhotos.physiotherapy,
     icon: PersonSimpleWalk,
   },
   {
@@ -38,7 +40,21 @@ const clinicalServices = [
     helps: ["People finding everyday tasks harder", "Participants exploring equipment or environmental changes", "Families seeking practical strategies for daily life"],
     approach: ["Start with the activities that matter to the person", "Consider strengths, barriers and the real environment", "Coordinate recommendations with consent"],
     photoPrompts: servicePhotoPrompts["occupational-therapy"],
+    photos: servicePhotos["occupational-therapy"],
     icon: PuzzlePiece,
+  },
+  {
+    slug: "social-work",
+    title: "Social Work",
+    category: "Therapist-led care",
+    summary: "Practical, person-centred support to navigate services, strengthen wellbeing and work through complex life changes.",
+    intro: "Our social work service helps participants and families understand their options, identify priorities and connect the different parts of their support network. We take time to understand the person's circumstances, strengths and goals before agreeing on practical next steps.",
+    includes: ["Psychosocial assessment and goal planning", "Support navigating services and community resources", "Advocacy, coordination and family support", "Strategies for life transitions and changing circumstances"],
+    helps: ["People navigating complex services or major life changes", "Participants seeking stronger informal and community supports", "Families needing practical guidance and coordinated next steps"],
+    approach: ["Listen to the person's story, priorities and existing strengths", "Clarify options, responsibilities and practical next steps", "Coordinate with chosen supports and professionals with consent"],
+    photoPrompts: servicePhotoPrompts["social-work"],
+    photos: servicePhotos["social-work"],
+    icon: UsersThree,
   },
   {
     slug: "allied-health-assistance",
@@ -50,6 +66,7 @@ const clinicalServices = [
     helps: ["People with an established therapy program", "Participants who benefit from supported practice", "Families looking for continuity between reviews"],
     approach: ["Work from a current delegated therapy plan", "Stay within role, competence and supervision requirements", "Escalate changes or concerns to the treating clinician"],
     photoPrompts: servicePhotoPrompts["allied-health-assistance"],
+    photos: servicePhotos["allied-health-assistance"],
     icon: Pulse,
   },
   {
@@ -62,6 +79,7 @@ const clinicalServices = [
     helps: ["People managing muscular discomfort", "People whose movement is limited by soft tissue symptoms", "Clients seeking practical self-management strategies"],
     approach: ["Clarify symptoms, goals and relevant health information", "Explain options, benefits and limits before treatment", "Refer on when needs sit outside service scope"],
     photoPrompts: servicePhotoPrompts.myotherapy,
+    photos: servicePhotos.myotherapy,
     icon: HandHeart,
   },
 ];
@@ -77,6 +95,7 @@ const earlyChildhoodServices = [
     helps: ["Young children with developmental delay or disability", "Families wanting practical strategies for everyday routines", "Children building participation across home and community life"],
     approach: ["Include the child in age and developmentally appropriate ways", "Work collaboratively with families and chosen professionals", "Review goals as the child, family and circumstances change"],
     photoPrompts: servicePhotoPrompts["early-childhood-supports"],
+    photos: servicePhotos["early-childhood-supports"],
     icon: Baby,
   },
 ];
@@ -92,6 +111,7 @@ const dailyLivingServices = [
     helps: ["People who need reliable support with daily routines", "Participants building confidence at home", "Families seeking consistent, respectful assistance"],
     approach: ["Record preferences, consent and communication needs", "Match workers to the required skills and preferences", "Review routines when needs or circumstances change"],
     photoPrompts: servicePhotoPrompts["personal-care"],
+    photos: servicePhotos["personal-care"],
     icon: HandHeart,
   },
   {
@@ -104,6 +124,7 @@ const dailyLivingServices = [
     helps: ["Participants who need reliable travel assistance", "People attending regular appointments", "People building confidence with community access"],
     approach: ["Confirm the purpose, route and support needs", "Plan for mobility, timing and access requirements", "Review what makes each journey work well"],
     photoPrompts: servicePhotoPrompts["travel-transport"],
+    photos: servicePhotos["travel-transport"],
     icon: Bus,
   },
   {
@@ -116,6 +137,7 @@ const dailyLivingServices = [
     helps: ["Participants in shared living arrangements", "People seeking clearer home routines", "Households coordinating regular daily support"],
     approach: ["Understand the household rhythm and each person's role", "Document agreed routines and boundaries", "Review arrangements when the household changes"],
     photoPrompts: servicePhotoPrompts["daily-tasks-shared-living"],
+    photos: servicePhotos["daily-tasks-shared-living"],
     icon: HouseLine,
   },
   {
@@ -128,6 +150,7 @@ const dailyLivingServices = [
     helps: ["Participants who require regular support at home", "People building independent living skills", "Families planning stable home-based supports"],
     approach: ["Separate housing arrangements from support choices", "Co-design routines, responsibilities and safeguards", "Plan for worker changes and service continuity"],
     photoPrompts: servicePhotoPrompts["supported-independent-living"],
+    photos: servicePhotos["supported-independent-living"],
     icon: Armchair,
   },
   {
@@ -140,6 +163,7 @@ const dailyLivingServices = [
     helps: ["Participants working toward independence goals", "People who want to build daily living confidence", "Families seeking practical skill development"],
     approach: ["Choose a meaningful, observable goal", "Practise in the setting where the skill is used", "Adjust the pace based on feedback and progress"],
     photoPrompts: servicePhotoPrompts["development-life-skills"],
+    photos: servicePhotos["development-life-skills"],
     icon: CookingPot,
   },
   {
@@ -152,6 +176,7 @@ const dailyLivingServices = [
     helps: ["Participants who need support maintaining their home", "People seeking consistent household routines", "Families coordinating practical daily assistance"],
     approach: ["Agree on tasks, priorities and preferred routines", "Support safe participation where appropriate", "Review the arrangement as needs change"],
     photoPrompts: servicePhotoPrompts["household-tasks"],
+    photos: servicePhotos["household-tasks"],
     icon: Broom,
   },
 ];
@@ -167,6 +192,7 @@ const communityServices = [
     helps: ["People wanting to try new community experiences", "Participants building confidence outside home", "People seeking purposeful local connection"],
     approach: ["Start with the participant's own idea of connection", "Build from familiar to new experiences", "Review whether activities remain meaningful"],
     photoPrompts: servicePhotoPrompts["innovative-community-participation"],
+    photos: servicePhotos["innovative-community-participation"],
     icon: Sparkle,
   },
   {
@@ -179,6 +205,7 @@ const communityServices = [
     helps: ["Participants wanting stronger community connection", "People building independence outside the home", "People who want support to pursue an interest"],
     approach: ["Choose activities that genuinely matter", "Plan access, communication and support needs", "Keep the participant in control of pace and choice"],
     photoPrompts: servicePhotoPrompts["community-participation"],
+    photos: servicePhotos["community-participation"],
     icon: Plant,
   },
   {
@@ -191,6 +218,7 @@ const communityServices = [
     helps: ["People seeking structured social connection", "Participants exploring shared interests", "People who benefit from supported group participation"],
     approach: ["Match the activity to interests and goals", "Plan communication and access requirements", "Invite feedback about comfort and participation"],
     photoPrompts: servicePhotoPrompts["group-centre-activities"],
+    photos: servicePhotos["group-centre-activities"],
     icon: UsersThree,
   },
   {
@@ -203,6 +231,7 @@ const communityServices = [
     helps: ["Participants seeking regular practical assistance", "People who value consistent workers", "Families coordinating home and community support"],
     approach: ["Record worker preferences and required competencies", "Introduce roles and boundaries clearly", "Respond promptly to feedback or changing needs"],
     photoPrompts: servicePhotoPrompts["support-workers"],
+    photos: servicePhotos["support-workers"],
     icon: HouseLine,
   },
 ];

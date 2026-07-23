@@ -5,27 +5,42 @@ import { ChatCircleDots } from "@phosphor-icons/react/dist/csr/ChatCircleDots";
 import { CheckCircle } from "@phosphor-icons/react/dist/csr/CheckCircle";
 import { ClipboardText } from "@phosphor-icons/react/dist/csr/ClipboardText";
 import { HandHeart } from "@phosphor-icons/react/dist/csr/HandHeart";
-import { ImageSquare } from "@phosphor-icons/react/dist/csr/ImageSquare";
 import { TrendUp } from "@phosphor-icons/react/dist/csr/TrendUp";
 import { UserCircle } from "@phosphor-icons/react/dist/csr/UserCircle";
 import { motion, useReducedMotion } from "motion/react";
+import Image from "next/image";
+import type { Locale } from "../../_i18n/locale";
 import styles from "./service.module.css";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-const processSteps = [
-  { label: "Understand", icon: ChatCircleDots },
-  { label: "Plan", icon: ClipboardText },
-  { label: "Support", icon: HandHeart },
-  { label: "Review", icon: TrendUp },
-] as const;
+const copy = {
+  en: {
+    introTitle: "Support built around the person, not a template.",
+    introSupporting: "We work alongside you, your family and chosen professionals to keep support practical, understandable and connected to everyday life.",
+    includes: "What support may include",
+    helps: "Who this may help",
+    process: "How we work",
+    steps: ["Understand", "Plan", "Support", "Review"],
+  },
+  zh: {
+    introTitle: "以本人为中心，而不是套用固定模板。",
+    introSupporting: "我们会与您、您的家人及您选择的专业人员合作，让支持保持实用、清晰，并与真实日常生活紧密相连。",
+    includes: "支持可能包括",
+    helps: "适合哪些人士",
+    process: "我们的服务流程",
+    steps: ["了解", "规划", "支持", "复查"],
+  },
+} as const;
+
+const processIcons = [ChatCircleDots, ClipboardText, HandHeart, TrendUp] as const;
 
 const revealItem = {
   hidden: { opacity: 0, y: 22 },
   visible: { opacity: 1, y: 0 },
 };
 
-export function ServiceHero({ title, summary, photoPrompt }: { title: string; summary: string; photoPrompt: string }) {
+export function ServiceHero({ title, summary, photoPrompt, photoSrc, locale }: { title: string; summary: string; photoPrompt: string; photoSrc: string; locale: Locale }) {
   const reduce = useReducedMotion();
 
   return <section className={styles.heroSection}>
@@ -43,14 +58,11 @@ export function ServiceHero({ title, summary, photoPrompt }: { title: string; su
         }}
       >
         <motion.div
-          className={styles.heroPlaceholder}
-          role="img"
-          aria-label={`${title} hero photo placeholder`}
+          className={styles.heroPhoto}
           variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
           transition={{ duration: .55, delay: .2 }}
         >
-          <ImageSquare size={38} weight="light" />
-          <span>Hero photo placeholder</span>
+          <Image src={photoSrc} alt={locale === "zh" ? `${title} 日常生活支持场景` : `${title} support in an everyday setting`} fill priority sizes="(max-width: 700px) calc(100vw - 24px), 1360px" />
         </motion.div>
         <div className={styles.heroShade} />
         <motion.div
@@ -65,8 +77,9 @@ export function ServiceHero({ title, summary, photoPrompt }: { title: string; su
   </section>;
 }
 
-export function ServiceIntro({ title, intro, photoPrompt }: { title: string; intro: string; photoPrompt: string }) {
+export function ServiceIntro({ title, intro, photoPrompt, photoSrc, locale }: { title: string; intro: string; photoPrompt: string; photoSrc: string; locale: Locale }) {
   const reduce = useReducedMotion();
+  const content = copy[locale];
 
   return <section className={styles.introSection}>
     <div className={`${styles.pageShell} ${styles.introLayout}`}>
@@ -77,29 +90,27 @@ export function ServiceIntro({ title, intro, photoPrompt }: { title: string; int
         viewport={{ once: false, amount: .28 }}
         transition={{ duration: .72, ease }}
       >
-        <h2>Support built around the person, not a template.</h2>
+        <h2>{content.introTitle}</h2>
         <p>{intro}</p>
-        <p>We work alongside you, your family and chosen professionals to keep support practical, understandable and connected to everyday life.</p>
+        <p>{content.introSupporting}</p>
       </motion.div>
       <motion.div
-        className={styles.supportingPlaceholder}
+        className={styles.supportingPhoto}
         data-photo-prompt={photoPrompt}
-        role="img"
-        aria-label={`${title} supporting photo placeholder`}
         initial={reduce ? false : { opacity: 0, x: 28, scale: .985 }}
         whileInView={{ opacity: 1, x: 0, scale: 1 }}
         viewport={{ once: false, amount: .25 }}
         transition={{ duration: .76, ease, delay: .06 }}
       >
-        <ImageSquare size={38} weight="light" />
-        <span>Supporting photo placeholder</span>
+        <Image src={photoSrc} alt={locale === "zh" ? `${title} 以参与者为中心的支持场景` : `${title} support planned around the participant`} fill sizes="(max-width: 700px) calc(100vw - 40px), 55vw" />
       </motion.div>
     </div>
   </section>;
 }
 
-export function ServiceDetails({ includes, helps }: { includes: readonly string[]; helps: readonly string[] }) {
+export function ServiceDetails({ includes, helps, locale }: { includes: readonly string[]; helps: readonly string[]; locale: Locale }) {
   const reduce = useReducedMotion();
+  const content = copy[locale];
 
   return <section className={styles.detailsSection}>
     <motion.div
@@ -109,8 +120,8 @@ export function ServiceDetails({ includes, helps }: { includes: readonly string[
       viewport={{ once: false, amount: .2 }}
       transition={{ duration: .72, ease }}
     >
-      <DetailColumn title="What support may include" items={includes} type="check" reduce={Boolean(reduce)} />
-      <DetailColumn title="Who this may help" items={helps} type="person" reduce={Boolean(reduce)} />
+      <DetailColumn title={content.includes} items={includes} type="check" reduce={Boolean(reduce)} />
+      <DetailColumn title={content.helps} items={helps} type="person" reduce={Boolean(reduce)} />
     </motion.div>
   </section>;
 }
@@ -130,8 +141,9 @@ function DetailColumn({ title, items, type, reduce }: { title: string; items: re
   </motion.div>;
 }
 
-export function ServiceProcess({ descriptions }: { descriptions: readonly string[] }) {
+export function ServiceProcess({ descriptions, locale }: { descriptions: readonly string[]; locale: Locale }) {
   const reduce = useReducedMotion();
+  const content = copy[locale];
 
   return <section className={styles.processSection}>
     <div className={styles.pageShell}>
@@ -140,7 +152,7 @@ export function ServiceProcess({ descriptions }: { descriptions: readonly string
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: .5 }}
         transition={{ duration: .6, ease }}
-      >How we work</motion.h2>
+      >{content.process}</motion.h2>
       <motion.div
         className={styles.processGrid}
         initial={reduce ? false : "hidden"}
@@ -148,12 +160,12 @@ export function ServiceProcess({ descriptions }: { descriptions: readonly string
         viewport={{ once: false, amount: .18 }}
         variants={{ visible: { transition: { staggerChildren: .1 } } }}
       >
-        {processSteps.map((step, index) => {
-          const StepIcon = step.icon;
-          return <motion.article className={styles.processStep} key={step.label} variants={revealItem} transition={{ duration: .6, ease }}>
+        {content.steps.map((step, index) => {
+          const StepIcon = processIcons[index];
+          return <motion.article className={styles.processStep} key={step} variants={revealItem} transition={{ duration: .6, ease }}>
             <motion.div className={styles.processIcon} variants={{ hidden: { scale: .82 }, visible: { scale: 1 } }} transition={{ type: "spring", stiffness: 180, damping: 18 }}><StepIcon size={34} weight="light" /></motion.div>
-            <div><h3>{step.label}</h3><p>{descriptions[index]}</p></div>
-            {index < processSteps.length - 1 && <CaretRight className={styles.processArrow} size={22} weight="light" aria-hidden="true" />}
+            <div><h3>{step}</h3><p>{descriptions[index]}</p></div>
+            {index < content.steps.length - 1 && <CaretRight className={styles.processArrow} size={22} weight="light" aria-hidden="true" />}
           </motion.article>;
         })}
       </motion.div>
