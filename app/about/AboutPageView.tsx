@@ -1,33 +1,112 @@
+import { Check } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
-import { PageHero } from "../_components/page-hero/PageHero";
-import type { Locale } from "../_i18n/locale";
-
-const copy = {
-  en: {
-    title: "Better care begins with listening.",
-    lead: "We are a Melbourne-based allied health and support provider focused on practical care, clear communication and genuine respect.",
-    imageAlt: "A warm home physiotherapy appointment with family involvement",
-    heading: "Care should make sense in daily life.",
-    intro: "Better Care Health Group works with participants, older people, families and referrers across Melbourne. Our mobile model helps us understand the real environments, routines and relationships around each person.",
-    howTitle: "How we work",
-    howBody: "We listen first, explain recommendations clearly and keep support connected to meaningful goals. When you consent, we collaborate with the people already involved in your care.",
-    standardsTitle: "Professional standards",
-    standardsBody: "We are a Registered NDIS Provider. Our practitioners hold the qualifications and professional registrations required for their roles, including AHPRA registration where applicable.",
-  },
-  zh: {
-    title: "更好的照护，从聆听开始。",
-    lead: "我们是位于墨尔本的联合健康与支持服务机构，重视实用照护、清晰沟通和真诚尊重。",
-    imageAlt: "物理治疗师在家中与客户及家人进行温暖的治疗沟通",
-    heading: "照护应当真正适合日常生活。",
-    intro: "Better Care Health Group 为墨尔本各地的参与者、长者、家庭及转介人员提供服务。上门服务让我们能够了解每个人真实的生活环境、日常习惯与支持关系。",
-    howTitle: "我们的工作方式",
-    howBody: "我们先聆听，再清楚说明建议，并让支持始终与有意义的目标保持联系。在获得您的同意后，我们会与已经参与照护的人员合作。",
-    standardsTitle: "专业标准",
-    standardsBody: "我们是注册 NDIS 服务提供商。专业人员具备其岗位所需的资质与专业注册，并在适用情况下持有 AHPRA 注册。",
-  },
-} as const;
+import Link from "next/link";
+import { Reveal } from "../_components/Motion";
+import { company } from "../_content/site";
+import { localizePath, type Locale } from "../_i18n/locale";
+import { aboutContent } from "./aboutContent";
+import styles from "./AboutPage.module.css";
 
 export function AboutPageView({ locale }: { locale: Locale }) {
-  const content = copy[locale];
-  return <main id="main-content"><PageHero title={content.title} locale={locale} imageKeywords={["allied health director portrait Melbourne natural", "care team participant planning home Australia"]}>{content.lead}</PageHero><section className="page-section"><div className="site-shell film-layout"><div className="film-frame"><Image src="/media/home-physio-hero.png" alt={content.imageAlt} width={1792} height={1024} /></div><div className="prose"><h2>{content.heading}</h2><p>{content.intro}</p><h3>{content.howTitle}</h3><p>{content.howBody}</p><h3>{content.standardsTitle}</h3><p>{content.standardsBody}</p></div></div></section></main>;
+  const content = aboutContent[locale];
+
+  return <main id="main-content" className={styles.page}>
+    <section className={styles.hero}>
+      <div className={`site-shell ${styles.heroLayout}`}>
+        <Reveal className={styles.heroCopy}>
+          <h1>{content.title}</h1>
+          <p>{content.lead}</p>
+          <div className={styles.heroActions}>
+            <Link className="button button-dark" href={localizePath("/enquiry", locale)}>{content.enquiryCta}</Link>
+            <Link className={styles.textLink} href={localizePath("/services", locale)}>{content.servicesCta}</Link>
+          </div>
+        </Reveal>
+        <Reveal className={styles.heroMedia} delay={.08}>
+          <Image
+            src="/generated-photos/about/about-hero-community-garden.jpg"
+            alt={content.heroAlt}
+            fill
+            priority
+            sizes="(max-width: 960px) calc(100vw - 28px), 58vw"
+          />
+        </Reveal>
+      </div>
+    </section>
+
+    <section className={styles.storySection}>
+      <div className={`site-shell ${styles.storyLayout}`}>
+        <Reveal className={styles.storyMedia}>
+          <Image
+            src="/generated-photos/about/about-care-planning-home.jpg"
+            alt={content.storyAlt}
+            fill
+            sizes="(max-width: 960px) calc(100vw - 28px), 48vw"
+          />
+        </Reveal>
+        <Reveal className={styles.storyCopy} delay={.08}>
+          <h2>{content.storyTitle}</h2>
+          {content.storyBody.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+        </Reveal>
+      </div>
+    </section>
+
+    <section className={styles.principlesSection}>
+      <div className={`site-shell ${styles.principlesLayout}`}>
+        <Reveal className={styles.principlesIntro}>
+          <h2>{content.principlesTitle}</h2>
+          <p>{content.principlesIntro}</p>
+        </Reveal>
+        <div className={styles.principleRows}>
+          {content.principles.map((principle, index) => <Reveal className={styles.principleRow} delay={index * .05} key={principle.title}>
+            <span className={styles.principleNumber}>{String(index + 1).padStart(2, "0")}</span>
+            <h3>{principle.title}</h3>
+            <p>{principle.body}</p>
+          </Reveal>)}
+        </div>
+      </div>
+    </section>
+
+    <section className={styles.connectedSection}>
+      <div className={`site-shell ${styles.connectedLayout}`}>
+        <Reveal><h2>{content.connectedTitle}</h2></Reveal>
+        <Reveal className={styles.connectedCopy} delay={.08}>
+          <p>{content.connectedBody}</p>
+          <strong>{content.connectedStatement}</strong>
+        </Reveal>
+      </div>
+    </section>
+
+    <section className={styles.standardsSection}>
+      <div className={`site-shell ${styles.standardsLayout}`}>
+        <Reveal className={styles.standardsCopy}>
+          <h2>{content.standardsTitle}</h2>
+          <p>{content.standardsBody}</p>
+          <ul>
+            {content.standards.map((standard) => <li key={standard}><span><Check size={18} weight="bold" /></span>{standard}</li>)}
+          </ul>
+        </Reveal>
+        <Reveal className={styles.standardsMedia} delay={.08}>
+          <Image
+            src="/generated-photos/about/about-clinical-consultation.jpg"
+            alt={content.standardsAlt}
+            fill
+            sizes="(max-width: 960px) calc(100vw - 28px), 52vw"
+          />
+        </Reveal>
+      </div>
+    </section>
+
+    <section className={styles.closingSection}>
+      <div className={`site-shell ${styles.closingLayout}`}>
+        <Reveal><h2>{content.closingTitle}</h2></Reveal>
+        <Reveal className={styles.closingCopy} delay={.08}>
+          <p>{content.closingBody}</p>
+          <div className={styles.closingActions}>
+            <Link className="button button-white" href={localizePath("/enquiry", locale)}>{content.enquiryCta}</Link>
+            <a className={styles.callLink} href={company.phoneHref}>{content.callCta}</a>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  </main>;
 }
