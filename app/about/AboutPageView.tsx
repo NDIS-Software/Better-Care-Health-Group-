@@ -23,7 +23,7 @@ export function AboutPageView({ locale }: { locale: Locale }) {
         </Reveal>
         <Reveal className={styles.heroMedia} delay={.08}>
           <Image
-            src="/generated-photos/about/about-hero-community-garden.jpg"
+            src="/media/home-physio-hero.png"
             alt={content.heroAlt}
             fill
             priority
