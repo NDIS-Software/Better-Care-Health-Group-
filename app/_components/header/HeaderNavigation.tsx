@@ -17,7 +17,7 @@ const navigation = {
     ourServices: "Our services",
     servicesIntro: "Care organised around everyday needs.",
     viewAll: "View all services",
-    language: "中文",
+    language: "CN",
     switchLabel: "切换至中文",
     groups: [
       {
