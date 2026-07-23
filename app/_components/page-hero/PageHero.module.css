@@ -20,11 +20,27 @@
   border-radius: 50%;
 }
 
+.heroTextOnly {
+  min-height: clamp(420px, 58dvh, 600px);
+}
+
 .layout {
   display: grid;
   grid-template-columns: minmax(0, .9fr) minmax(420px, 1.1fr);
   gap: clamp(44px, 7vw, 96px);
   align-items: center;
+}
+
+.layoutTextOnly {
+  grid-template-columns: minmax(0, 780px);
+}
+
+.layoutTextOnly .copy h1 {
+  max-width: 15ch;
+}
+
+.layoutTextOnly .copy p {
+  max-width: 62ch;
 }
 
 .copy h1 {
@@ -94,6 +110,11 @@
 @media (max-width: 620px) {
   .hero { padding: 56px 0 72px; }
   .copy h1 { font-size: clamp(3rem, 16vw, 4.8rem); }
+  .chinese .copy h1 {
+    font-size: clamp(2.65rem, 12vw, 3.5rem);
+    letter-spacing: -.045em;
+    line-height: .94;
+  }
   .media { grid-template-columns: 1.15fr .85fr; gap: 10px; }
   .placeholder, .photo { min-height: 330px; padding: 16px; }
   .secondaryMedia { margin-bottom: 42px; }

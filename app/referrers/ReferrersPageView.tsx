@@ -30,5 +30,5 @@ const copy = {
 
 export function ReferrersPageView({ locale }: { locale: Locale }) {
   const content = copy[locale];
-  return <main id="main-content"><PageHero title={content.title} locale={locale} imageKeywords={["support coordinator allied health referral meeting", "health professional family care planning Australia"]}>{content.lead}</PageHero><section className="page-section"><div className="site-shell content-grid"><h2>{content.heading}</h2><div className="prose"><p>{content.intro}</p><h3>{content.detailsTitle}</h3><ul>{content.details.map((detail) => <li key={detail}>{detail}</li>)}</ul><h3>{content.nextTitle}</h3><p>{content.nextBody}</p><h3>{content.urgentTitle}</h3><p>{content.urgentBody}</p></div></div></section></main>;
+  return <main id="main-content"><PageHero title={content.title} locale={locale} showMedia={false}>{content.lead}</PageHero><section className="page-section"><div className="site-shell content-grid"><h2>{content.heading}</h2><div className="prose"><p>{content.intro}</p><h3>{content.detailsTitle}</h3><ul>{content.details.map((detail) => <li key={detail}>{detail}</li>)}</ul><h3>{content.nextTitle}</h3><p>{content.nextBody}</p><h3>{content.urgentTitle}</h3><p>{content.urgentBody}</p></div></div></section></main>;
 }

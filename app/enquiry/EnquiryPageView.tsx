@@ -25,5 +25,15 @@ const copy = {
 
 export function EnquiryPageView({ locale }: { locale: Locale }) {
   const content = copy[locale];
-  return <main id="main-content"><PageHero title={content.title} locale={locale} imageKeywords={["care coordinator phone conversation Australia", "participant family allied health enquiry home"]}>{content.lead}</PageHero><section className="page-section"><div className="site-shell form-layout"><aside><p className="eyebrow">{content.label}</p><h2 className="standalone-page-heading">{content.heading}</h2><div className="prose"><p><Phone size={22} className="inline-contact-icon" /><a href={company.phoneHref}>{company.phone}</a></p><p><Envelope size={22} className="inline-contact-icon" /><a href={`mailto:${company.email}`}>{company.email}</a></p><p><Clock size={22} className="inline-contact-icon" />{content.response}</p><p>{content.urgent}</p></div></aside><EnquiryForm locale={locale} /></div></section></main>;
+  const images = locale === "zh"
+    ? [
+      { src: "/generated-photos/enquiry/care-coordinator-phone-enquiry.jpg", alt: "服务协调员通过电话耐心了解咨询需求" },
+      { src: "/generated-photos/enquiry/participant-initial-consultation.jpg", alt: "参与者与服务协调员进行初步咨询" },
+    ]
+    : [
+      { src: "/generated-photos/enquiry/care-coordinator-phone-enquiry.jpg", alt: "Care coordinator listening to an enquiry by phone" },
+      { src: "/generated-photos/enquiry/participant-initial-consultation.jpg", alt: "Participant discussing an initial enquiry with a care coordinator" },
+    ];
+
+  return <main id="main-content"><PageHero title={content.title} locale={locale} images={images}>{content.lead}</PageHero><section className="page-section"><div className="site-shell form-layout"><aside><p className="eyebrow">{content.label}</p><h2 className="standalone-page-heading">{content.heading}</h2><div className="prose"><p><Phone size={22} className="inline-contact-icon" /><a href={company.phoneHref}>{company.phone}</a></p><p><Envelope size={22} className="inline-contact-icon" /><a href={`mailto:${company.email}`}>{company.email}</a></p><p><Clock size={22} className="inline-contact-icon" />{content.response}</p><p>{content.urgent}</p></div></aside><EnquiryForm locale={locale} /></div></section></main>;
 }

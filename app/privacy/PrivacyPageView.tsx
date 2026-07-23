@@ -32,7 +32,7 @@ export function PrivacyPageView({ locale }: { locale: Locale }) {
   const zh = locale === "zh";
   const sections = zh ? chineseSections : englishSections;
   return <main id="main-content">
-    <PageHero title={zh ? "隐私政策" : "Privacy Policy"} locale={locale} imageKeywords={["secure health information privacy Australia", "accessible consent conversation allied health"]}>{zh ? "Better Care Health Group 如何处理通过本网站、服务咨询及初步接收流程提供的个人信息。" : "How Better Care Health Group handles personal information provided through this website, service enquiries and early intake."}</PageHero>
+    <PageHero title={zh ? "隐私政策" : "Privacy Policy"} locale={locale} showMedia={false}>{zh ? "Better Care Health Group 如何处理通过本网站、服务咨询及初步接收流程提供的个人信息。" : "How Better Care Health Group handles personal information provided through this website, service enquiries and early intake."}</PageHero>
     <section className="page-section"><div className="site-shell privacy-layout">
       <aside className="privacy-summary"><p className="eyebrow">{zh ? "最后更新" : "Last updated"}</p><p>{zh ? "2026 年 7 月 17 日" : "17 July 2026"}</p><p>{zh ? "本网站政策应与服务接收期间提供的服务专用隐私说明、同意书及记录处理程序一并阅读。" : "This website policy should be read alongside any service-specific privacy notices, consent forms and record-handling procedures provided during intake."}</p><a className="button button-white" href={`mailto:${company.email}`}>{zh ? "咨询隐私问题" : "Ask a privacy question"}</a></aside>
       <div className="privacy-sections">{sections.map((section) => <section key={section.title}><h2>{section.title}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>)}</div>
