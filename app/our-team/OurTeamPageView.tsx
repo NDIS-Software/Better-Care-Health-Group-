@@ -27,7 +27,7 @@ export function OurTeamPageView({ locale }: { locale: Locale }) {
       <div className={styles.profileAccent} aria-hidden="true" />
       <div className={`site-shell ${styles.profile}`}>
         <Reveal className={styles.profileMedia}>
-          <Image src="/team/jason-social-worker.png" alt="Jason, Social Worker at Better Care Health Group" fill sizes="(max-width: 860px) calc(100vw - 28px), 42vw" />
+          <Image src="/team/jason-social-worker-hd.png" alt="Jason, Social Worker at Better Care Health Group" fill sizes="(max-width: 860px) calc(100vw - 28px), 42vw" />
         </Reveal>
         <Reveal className={styles.profileCopy} delay={.08}>
           <p className={styles.role}>{jason.role}</p>
