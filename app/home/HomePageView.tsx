@@ -2,7 +2,6 @@ import { ArrowRight, CheckCircle, EnvelopeSimple, HouseLine, MapPin, Phone, Shie
 import Image from "next/image";
 import Link from "next/link";
 import { EnquiryForm } from "../_components/EnquiryForm";
-import { DirectorProfile } from "../_components/director/DirectorProfile";
 import { FaqSection, getFaqs } from "../_components/faq/FaqSection";
 import { HeroVideo } from "../_components/HeroVideo";
 import { Pop, Reveal } from "../_components/Motion";
@@ -13,6 +12,7 @@ import type { Locale } from "../_i18n/locale";
 import { localizePath } from "../_i18n/locale";
 import { getServices } from "../services/_content/translations";
 import styles from "./HomePage.module.css";
+import { TeamPreview } from "./team-preview/TeamPreview";
 
 const copy = {
   en: {
@@ -136,7 +136,7 @@ export function HomePageView({ locale }: { locale: Locale }) {
       <Reveal delay={.1}><div className="company-copy"><p>{content.companyParagraphs[0]}</p><p>{content.companyParagraphs[1]}</p><div className="company-promises">{content.promises.map((promise) => <span key={promise}>{promise}</span>)}</div></div></Reveal>
     </div></section>
 
-    <DirectorProfile locale={locale} />
+    <TeamPreview locale={locale} />
 
     <section className={`page-section ${styles.servicesSection}`}><div className="site-shell">
       <div className={styles.servicesHeader}><Reveal><p className="eyebrow">{content.servicesLabel}</p><h2 className="section-title">{content.servicesTitle}</h2><p className="section-copy">{content.servicesIntro}</p></Reveal></div>

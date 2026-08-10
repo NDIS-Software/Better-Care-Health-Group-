@@ -10,6 +10,7 @@ const navigation = {
   en: {
     services: "Services",
     about: "About",
+    team: "Our Team",
     referrers: "For Referrers",
     enquiry: "Online enquiry",
     menu: "Menu",
@@ -56,6 +57,7 @@ const navigation = {
   zh: {
     services: "服务项目",
     about: "关于我们",
+    team: "专业团队",
     referrers: "转介服务",
     enquiry: "在线咨询",
     menu: "菜单",
@@ -158,6 +160,7 @@ export function HeaderNavigation() {
         </div>
       </details>
       <Link href={path("/about")}>{copy.about}</Link>
+      <Link href={path("/our-team")}>{copy.team}</Link>
       <Link href={path("/referrers")}>{copy.referrers}</Link>
       <Link className="language-switch" href={languageHref} hrefLang={targetLocale === "zh" ? "zh-Hans" : "en-AU"} aria-label={copy.switchLabel} onClick={switchLanguage}>{copy.language}</Link>
       <Link className="nav-cta" href={path("/enquiry")}>{copy.enquiry}</Link>
@@ -167,6 +170,7 @@ export function HeaderNavigation() {
       <nav aria-label={copy.navigationLabel}>
         <Link href={path("/services")} onClick={closeMenus}>{copy.services}</Link>
         <Link href={path("/about")} onClick={closeMenus}>{copy.about}</Link>
+        <Link href={path("/our-team")} onClick={closeMenus}>{copy.team}</Link>
         <Link href={path("/referrers")} onClick={closeMenus}>{copy.referrers}</Link>
         {copy.groups.map((group) => <div className="mobile-service-group" key={group.label}>
           <span>{group.label}</span>

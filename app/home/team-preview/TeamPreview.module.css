@@ -1,0 +1,108 @@
+.section {
+  padding: clamp(78px, 9vw, 128px) 0;
+  background: var(--navy-deep);
+  color: #fff;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(260px, .78fr) minmax(0, 1.22fr);
+  gap: clamp(48px, 8vw, 118px);
+  align-items: center;
+}
+
+.label {
+  margin: 0 0 18px;
+  color: #73dcc7;
+  font-size: .78rem;
+  font-weight: 750;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.intro h2 {
+  max-width: 10ch;
+  margin: 0;
+  font-size: clamp(2.75rem, 5vw, 4.8rem);
+  line-height: .96;
+  letter-spacing: -.06em;
+}
+
+.intro > p:not(.label) {
+  max-width: 46ch;
+  margin: 26px 0 0;
+  color: rgb(255 255 255 / 72%);
+  line-height: 1.7;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #73dcc7;
+  color: #fff;
+  font-weight: 750;
+}
+
+.people {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.person {
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 16%);
+  border-radius: 22px;
+  background: rgb(255 255 255 / 7%);
+}
+
+.portrait {
+  position: relative;
+  display: grid;
+  min-height: 320px;
+  place-items: center;
+  overflow: hidden;
+  background: #f4f4f4;
+}
+
+.portrait img { object-fit: cover; object-position: center 10%; }
+
+.kunPortrait {
+  background: linear-gradient(145deg, #eef9f6, #9bd9cd 52%, #35a99a);
+}
+
+.kunPortrait::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border: 1px solid rgb(255 255 255 / 75%);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 54%);
+}
+
+.kunPortrait span {
+  position: relative;
+  z-index: 1;
+  color: var(--navy-deep);
+  font-size: 3.2rem;
+  font-weight: 750;
+}
+
+.person > div:last-child { padding: 24px; }
+.person h3 { margin: 0; font-size: 1.55rem; letter-spacing: -.04em; }
+.person p { margin: 7px 0 0; color: #73dcc7; font-weight: 700; }
+.person small { display: block; margin-top: 13px; color: rgb(255 255 255 / 65%); line-height: 1.45; }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .intro h2 { max-width: 14ch; }
+}
+
+@media (max-width: 560px) {
+  .people { grid-template-columns: 1fr; }
+  .portrait { min-height: 360px; }
+}

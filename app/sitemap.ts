@@ -4,7 +4,7 @@ import { localizePath } from "./_i18n/locale";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = (process.env.NEXT_PUBLIC_SITE_URL || "https://bettercarehg.com").replace(/\/$/, "");
-  const routes = ["", "/services", "/about", "/referrers", "/enquiry", "/privacy"];
+  const routes = ["", "/services", "/about", "/our-team", "/referrers", "/enquiry", "/privacy"];
   const paths = [...routes, ...services.map(({ slug }) => `/services/${slug}`)];
 
   return paths.flatMap((path) => {
