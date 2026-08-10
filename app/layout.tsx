@@ -4,6 +4,7 @@ import { Footer } from "./_components/Footer";
 import { Header } from "./_components/Header";
 import { DocumentLanguage } from "./_components/DocumentLanguage";
 import { SupportPrompt } from "./_components/support-prompt/SupportPrompt";
+import { ZoomGuard } from "./_components/ZoomGuard";
 import { brandSocialImagePath, faviconPath, siteUrl } from "./_config/seo";
 import "./globals.css";
 
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en-AU" data-scroll-behavior="smooth">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <DocumentLanguage />
+        <ZoomGuard />
         <a className="skip-link" href="#main-content">Skip to content</a>
         <Header />
         {children}
